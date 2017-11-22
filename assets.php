@@ -368,6 +368,7 @@ function insert_row(serial_no)
 	var u_size = document.getElementById("new_u_size").value;
 	var po_number = document.getElementById("new_po_number").value;
 	var deployed = document.getElementById("new_deployed").value;
+	var purchase_date = document.getElementById("new_purchase_date").value;
 	
 	
  $.ajax
@@ -389,6 +390,7 @@ function insert_row(serial_no)
    u_size_val:u_size,
    po_number_val:po_number,
    deployed_val:deployed,
+   purchase_date_val:purchase_date,
   },
   success:function(response) 
   {

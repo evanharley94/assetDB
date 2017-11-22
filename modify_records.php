@@ -78,7 +78,7 @@ if(isset($_POST['insert_row']))
     $vendor = $_POST['vendor_val'];
     $model_no = $_POST['model_no_val'];
     $type = $_POST['type_val'];
- //   $purchase_date = $_POST["purchase_date_val"];
+    $purchase_date = $_POST["purchase_date_val"];
     $memory = $_POST['memory_val'];
     $proc_type = $_POST['proc_type_val'];
     $no_of_procs = $_POST['no_of_procs_val'];
@@ -105,10 +105,20 @@ if(isset($_POST['insert_row']))
     {
         $u_size = 'NULL';
     }
+    
+    if(empty($purchase_date))
+    {
 
         $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed)
         VALUES ('$serial_no','$vendor','$model_no', '$type', NULL, '$memory', '$proc_type', $no_of_procs, $proc_cores, '$proc_speed','$misc_info', $u_size, '$po_number', '$deployed')");
-
+    }
+    
+    else 
+        
+    {
+        $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed)
+        VALUES ('$serial_no','$vendor','$model_no', '$type', '$purchase_date', '$memory', '$proc_type', $no_of_procs, $proc_cores, '$proc_speed','$misc_info', $u_size, '$po_number', '$deployed')");
+    }
     
     
     if($insert)
