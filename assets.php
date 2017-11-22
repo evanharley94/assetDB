@@ -394,28 +394,9 @@ function insert_row(serial_no)
   },
   success:function(response) 
   {
-   if(response="success")
+   if(response=="Success")
    {
-    var serial_no = response;
-    var table = document.getElementById("assets");
-    var table_length = (table.rows.length)-1;
-    var row = table.insertRow(table_length).outerHTML=
-    	"<tr id='row"+serial_no+"'><td id='serial_no_val"+serial_no+"'>"+serial_no+"</td><td id='model_no_val"+serial_no+"'>"+model_no+"</td><td id='type"+serial_no+"'>"+type+"</td><td id='purchase_date"+serial_no+"'>"+purchase_date+"</td><td id='memory_val"+serial_no+"'>"+memory+"</td><td id='proc_type_val"+serial_no+"'>"+proc_type+"</td><td id='no_of_procs_val"+serial_no+"'>"+no_of_procs+"</td><td id='proc_cores_val"+serial_no+"'>"+proc_cores+"</td><td id='proc_speed_val"+serial_no+"'>"+proc_speed+"</td><td id='misc_info_val"+serial_no+"'>"+misc_info+"</td><td id='u_size_val"+serial_no+"'>"+u_size+"</td><td id='po_number_val"+serial_no+"'>"+po_number+"</td><td id='deployed_val"+serial_no+"'>"+deployed+"</td><td><input type='button' class='edit_button' id='edit_button"+serial_no+"' value='edit' onclick='edit_row("+serial_no+");'/><input type='button' class='save_button' id='save_button"+serial_no+"' value='save' onclick='save_row("+serial_no+");'/><input type='button' class='delete_button' id='delete_button"+serial_no+"' value='delete' onclick='delete_row("+serial_no+");'/></td></tr>";
-
-   	document.getElementById("id").value="";
-	document.getElementById("new_vendor").value=""; // reset insert row back to empty
-	document.getElementById("new_model").value="";
-	document.getElementById("new_type").value="";
-	document.getElementById("new_purchase_date").value="";
-	document.getElementById("new_memory").value="";
-	document.getElementById("new_proc_type").value="";
-	document.getElementById("new_no_of_procs").value="";
-	document.getElementById("new_proc_cores").value="";
-	document.getElementById("new_proc_speed").value="";
-	document.getElementById("new_misc_info").value="";
-	document.getElementById("new_u_size").value="";
-	document.getElementById("new_po_number").value="";
-	document.getElementByID("new_deployed").value="";
+	   window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after inserting new row.
    }
   },
  });

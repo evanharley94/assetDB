@@ -123,14 +123,14 @@ if(isset($_POST['insert_row']))
     
     if($insert)
     {
-        echo "success";
+        echo "Success"; //serial_no returned so input fields can be named as per the others in the dataTables
     }
     
     else
     {
         die("Error Message: ".mysql_error());
     }
-    $db->close();
+   
 }
 
 
