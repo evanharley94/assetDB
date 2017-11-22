@@ -74,22 +74,22 @@ if(isset($_POST['delete_row']))
 
 if(isset($_POST['insert_row']))
 {
-    $serial_no = $db->quote($_POST["serial_no_val"]); // retrieve value from form and santise input against SQL injection
-    $vendor = $db->quote($_POST["vendor_val"]);
-    $model_no = $db->quote($_POST["model_no_val"]);
-    $type = $db->quote($_POST["type_val"]);
-    $purchase_date = $_POST["purchase_date_val"];
-    $memory = $db->quote($_POST["memory_val"]);
-    $proc_type = $db->quote($_POST["proc_type_val"]);
-    $no_of_procs = filter_var(($_POST["no_of_procs_val"]), FILTER_SANITIZE_NUMBER_INT); //santise INT of any non numerical characters
-    $proc_cores = filter_var(($_POST["proc_cores_val"]), FILTER_SANITIZE_NUMBER_INT);
-    $proc_speed = $db->quote($_POST["proc_speed_val"]);
-    $misc_info = $db->quote($_POST["misc_info_val"]);
-    $u_size = filter_var(($_POST["u_size_val"]), FILTER_SANITIZE_NUMBER_INT);
-    $po_number = $db->quote($_POST["po_number_val"]);
-    $deployed = $db->quote($_POST["deployed_val"]);
+    $serial_no = $_POST['id']; // retrieve value from form and santise input against SQL injection
+    $vendor = $_POST['vendor_val'];
+    $model_no = $_POST['model_no_val'];
+    $type = $_POST['type_val'];
+ //   $purchase_date = $_POST["purchase_date_val"];
+    $memory = $_POST['memory_val'];
+    $proc_type = $_POST['proc_type_val'];
+    $no_of_procs = $_POST['no_of_procs_val'];
+    $proc_cores = $_POST['proc_cores_val'];
+    $proc_speed = $_POST['proc_speed_val'];
+    $misc_info = $_POST['misc_info_val'];
+    $u_size = $_POST['u_size_val'];
+    $po_number = $_POST['po_number_val'];
+    $deployed = $_POST['deployed_val'];
+ 
     
-    //Handles int values been turned into empty strings from form post which won't insert into INT database field unless NULL
     if(empty($no_of_procs))
     {
         $no_of_procs = 'NULL';
@@ -105,21 +105,11 @@ if(isset($_POST['insert_row']))
     {
         $u_size = 'NULL';
     }
-    
-    if(empty($purchase_date))
-    {
+
         $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed)
-			VALUES ($serial_no,$vendor,$model_no, $type, NULL, $memory, $proc_type, $no_of_procs, $proc_cores, $proc_speed,
-			$misc_info, $u_size, $po_number, $deployed)");
-    }
+        VALUES ('$serial_no','$vendor','$model_no', '$type', NULL, '$memory', '$proc_type', $no_of_procs, $proc_cores, '$proc_speed','$misc_info', $u_size, '$po_number', '$deployed')");
+
     
-    else
-    {
-    
-    $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed)
-			VALUES ($serial_no,$vendor,$model_no, $type, '$purchase_date', $memory, $proc_type, $no_of_procs, $proc_cores, $proc_speed,
-			$misc_info, $u_size, $po_number, $deployed)");
-    }
     
     if($insert)
     {

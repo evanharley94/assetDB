@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css"/>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/fixedcolumns/3.2.3/js/dataTables.fixedColumns.min.js"></script>
-
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 </head>
 <body>
@@ -73,9 +73,17 @@
 		<div class="major">
 			<h2>Server Assets</h2>
 		</div>
+<div class="tab">
+  <button class="tablinks" onclick="openTable(event, 'server')" id="defaultOpen">Server</button>
+  <button class="tablinks" onclick="openTable(event, 'server_usage')">Server Usage</button>
+  <button class="tablinks" onclick="openTable(event, 'software')">Software</button>
+  <button class="tablinks" onclick="openTable(event, 'maintenance')">Maintenance</button>
+</div>
+		<div id="server" class="tabcontent">
 		<table id="assets" class="display">
     <thead>
         <tr>
+        	<th style="display:none;"></th>
             <th bgcolor="#ffffff">Serial Number</th>
             <th>Vendor</th>
             <th>Model</th>
@@ -107,6 +115,7 @@
             {
                 ?>     
         <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
+        	<td style="display:none;"></td>
             <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="vendor_val<?php echo $row['serial_no'];?>"><?php echo($row['vendor'])?></td>  
             <td id="model_no_val<?php echo $row['serial_no'];?>"><?php echo($row['model_no']) ?></td>
@@ -156,29 +165,31 @@ function editModal(serial_no)
 }
 </script>
 			<?php }?> 
-			
-        <tr id="new_row"> <!-- Too insert new row -->
-			<td><input type='text' id='new_serial_no' style='width:100px'/></td>
-			<td><input type='text' id='new_vendor' style='width:100px'/></td>
- 			<td><input type='text' id='new_model' style='width:100px'/></td>
-			<td><input type='text' id='new_type' style='width:100px'/></td>
-			<td><input type='date' id='new_purchase_date' style='width:130px'/></td>
-			<td><input type='text' id='new_memory' style='width:100px'/></td>
-			<td><input type='text' id='new_proc_type' style='width:100px'/></td>
-			<td><input type='number' id='new_no_of_procs' style='width:100px'/></td>
-			<td><input type='number' id='new_proc_cores' style='width:100px'/></td>
-			<td><input type='text' id='new_proc_speed' style='width:100px'/></td>
-			<td><input type='text' id='new_misc_info' style='width:100px'/></td>
-			<td><input type='number' id='new_u_size' style='width:100px'/></td>
-			<td><input type='text' id='new_po_number' style='width:100px'/></td>
-			<td><input type='text' id='new_deployed' style='width:50px'/></td>
-			<td><input type="button" class="material-icons" value="add" onclick="insert_row();"/></td>
+		<!----------- Too insert new row -------------->	
+        <tr id="new_row">
+        	<td style="display:none;"></td> 
+			<td><input type="text" id="new_id" style="width:100px"/></td>
+			<td><input type="text" id="new_vendor" style="width:100px"/></td>
+ 			<td><input type="text" id="new_model" style="width:100px"/></td>
+			<td><input type="text" id="new_type" style="width:100px"/></td>
+			<td><input type="date" id="new_purchase_date" style="width:130px"/></td>
+			<td><input type="text" id="new_memory" style="width:100px"/></td>
+			<td><input type="text" id="new_proc_type" style="width:100px"/></td>
+			<td><input type="number" id="new_no_of_procs" style="width:100px"/></td>
+			<td><input type="number" id="new_proc_cores" style="width:100px"/></td>
+			<td><input type="text" id="new_proc_speed" style="width:100px"/></td>
+			<td><input type="text" id="new_misc_info" style="width:100px"/></td>
+			<td><input type="number" id="new_u_size" style="width:100px"/></td>
+			<td><input type="text" id="new_po_number" style="width:100px"/></td>
+			<td><input type="text" id="new_deployed" style="width:50px"/></td>
+			<td><input type="button" class="material-icons" value="add" onclick="insert_row(document.getElementById('new_id').value);"/></td>
 			<td></td>
 			<td></td>
 		</tr> 			
 
     </tbody>
 </table>
+</div>
 		</div>
 </div>
 
@@ -191,7 +202,36 @@ $(document).ready( function () //initalise data table
              leftColumns: 1,
              rightColumns: 3
          }}); 
+   		table
+   	    .column( '1:visible' ) // order colum serial_no ascending
+   	    .order( 'asc' )
+   	    .draw();
 	} );
+
+//***************************************************
+// Tab options JS 
+
+function openTable(evt, tableName) {
+   
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) 
+    {
+        tablinks[i].className = tablinks[i].className.replace(" active", ""); // remove active from tabs that are not opened
+    }
+
+    document.getElementById(tableName).style.display = "block"; // show current tab
+    evt.currentTarget.className += " active"; // make tab active and open
+}
+
+document.getElementById("defaultOpen").click(); // open default tab servers
 
 //**************************************
 // edit table and save to DB using ajax
@@ -232,7 +272,7 @@ function edit_row(serial_no)
 
 function save_row(serial_no)
 {
- var vendor = document.getElementById("vendor_text"+serial_no).value; // equals new edited valye
+ var vendor = document.getElementById("vendor_text"+serial_no).value; // equals new edited value
  var model_no = document.getElementById("model_text"+serial_no).value;
  var type = document.getElementById("type_text"+serial_no).value;
  var purchase_date = document.getElementById("purchase_date_text"+serial_no).value;
@@ -314,13 +354,11 @@ function delete_row(serial_no)
  window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after deleting.
 }}
 
-function insert_row()
+function insert_row(serial_no)
 {
-	var serial_no = document.getElementById("new_serial_no").value; //get value of new row fields
-	var vendor = document.getElementById("new_vendor").value; 
+	var vendor = document.getElementById("new_vendor").value;
 	var model_no = document.getElementById("new_model").value;
 	var type = document.getElementById("new_type").value;
-	var purchase_date = document.getElementById("new_purchase_date").value;
 	var memory = document.getElementById("new_memory").value;
 	var proc_type = document.getElementById("new_proc_type").value;
 	var no_of_procs = document.getElementById("new_no_of_procs").value;
@@ -329,19 +367,19 @@ function insert_row()
 	var misc_info = document.getElementById("new_misc_info").value;
 	var u_size = document.getElementById("new_u_size").value;
 	var po_number = document.getElementById("new_po_number").value;
-	var deployed = document.getElementByID("new_deployed").value;
-	 
+	var deployed = document.getElementById("new_deployed").value;
+	
+	
  $.ajax
  ({
   type:'post',
   url:'modify_records.php',
   data:{
    insert_row:'insert_row',
-   serial_no_val:serial_no,
+   id:serial_no,
    vendor_val:vendor,
    model_no_val:model_no,
    type_val:type,
-   purchase_date_val:purchase_date,
    memory_val:memory,
    proc_type_val:proc_type,
    no_of_procs_val:no_of_procs,
@@ -362,6 +400,7 @@ function insert_row()
     var row = table.insertRow(table_length).outerHTML=
     	"<tr id='row"+serial_no+"'><td id='serial_no_val"+serial_no+"'>"+serial_no+"</td><td id='model_no_val"+serial_no+"'>"+model_no+"</td><td id='type"+serial_no+"'>"+type+"</td><td id='purchase_date"+serial_no+"'>"+purchase_date+"</td><td id='memory_val"+serial_no+"'>"+memory+"</td><td id='proc_type_val"+serial_no+"'>"+proc_type+"</td><td id='no_of_procs_val"+serial_no+"'>"+no_of_procs+"</td><td id='proc_cores_val"+serial_no+"'>"+proc_cores+"</td><td id='proc_speed_val"+serial_no+"'>"+proc_speed+"</td><td id='misc_info_val"+serial_no+"'>"+misc_info+"</td><td id='u_size_val"+serial_no+"'>"+u_size+"</td><td id='po_number_val"+serial_no+"'>"+po_number+"</td><td id='deployed_val"+serial_no+"'>"+deployed+"</td><td><input type='button' class='edit_button' id='edit_button"+serial_no+"' value='edit' onclick='edit_row("+serial_no+");'/><input type='button' class='save_button' id='save_button"+serial_no+"' value='save' onclick='save_row("+serial_no+");'/><input type='button' class='delete_button' id='delete_button"+serial_no+"' value='delete' onclick='delete_row("+serial_no+");'/></td></tr>";
 
+   	document.getElementById("id").value="";
 	document.getElementById("new_vendor").value=""; // reset insert row back to empty
 	document.getElementById("new_model").value="";
 	document.getElementById("new_type").value="";
@@ -376,7 +415,7 @@ function insert_row()
 	document.getElementById("new_po_number").value="";
 	document.getElementByID("new_deployed").value="";
    }
-  }
+  },
  });
 }
 

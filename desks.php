@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<script src="svg.js"></script>
 
 </head>
 <body>
@@ -33,57 +34,22 @@
 <div id="featured-wrapper">
 	<div id="featured" class="container">
 		<div class="major">
-			<h2>Manage ADC Assets below</h2>
+			<h2>Manage ADC Desks</h2>
 		</div>
-		<div class="column1">
-			<a href="servers.php"><span class="icon icon-cloud"></span></a>
-			<div class="title">
-				<h2><a href="servers.php">Servers</a></h2>
-				<span class="byline">Manage Server Assets</span>
-			</div>
-		</div>
-		<div class="column2">
-			<a href="network.php"><span class="icon icon-qrcode"></span></a>
-			<div class="title">
-				<h2><a href="networks.php">Networks</a></h2>
-				<span class="byline">Manage Network Assets</span>
-			</div>
-		</div>
-		<div class="column3">
-			<a href="hardware.php"><span class="icon icon-laptop"></span></a>
-			<div class="title">
-				<h2><a href="hardware.php">Hardware</a></h2>
-				<span class="byline">Manage Hardware</span>
-			</div>
-		</div>
-		<div class="column4">
-			<a href="licenses.php"><span class="icon icon-picture"></span></a>
-			<div class="title">
-				<h2><a href="licenses.php">Licenses</a></h2>
-				<span class="byline">Manage Licenses</span>
-			</div>
-		</div>
-		<div class="column1">
-			<a href="desks.php"><span class="icon icon-building"></span></a>
-			<div class="title">
-				<h2><a href="desks.php">Desks</a></h2>
-				<span class="byline">Manage Desks</span>
-			</div>
-		</div>
-		<div class="column2">
-			<a href="reports.php"><span class="icon icon-file"></span></a>
-			<div class="title">
-				<h2><a href="reports.php">Reports</a></h2>
-				<span class="byline">View Reports</span>
-			</div>
-		</div>
-		<div class="column3">
-			<a href="search.php"><span class="icon icon-search"></span></a>
-			<div class="title">
-				<h2><a href="search.php">Search</a></h2>
-				<span class="byline">Search For Assets</span>
-			</div>
-		</div>
+		
+		<div id="drawing"></div>
+		<script>
+		var draw = SVG('drawing')
+
+		// draw pod
+		var polyline = draw.polyline('50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40')
+		polyline.fill('none').move(20, 20)
+		polyline.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+
+		
+
+
+		</script>
 	</div>
 </div>
 <div id="copyright" class="container">
