@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-
+<script>sessionStorage.clear(); // this is needed to clear the local storage of the tab options so they load the first one 
+</script> 
 </head>
 <body>
 <div id="logo">
@@ -22,7 +23,7 @@
 		<ul>
 			<li><a href="index.php" accesskey="1" title="">Homepage</a></li>
 			<li class="current_page_item"><a href="#" accesskey="2" title="">Servers</a></li>
-			<li><a href="#" accesskey="3" title="">Networks</a></li>
+			<li><a href="networks.php" accesskey="3" title="">Networks</a></li>
 			<li><a href="#" accesskey="4" title="">Hardware</a></li>
 			<li><a href="#" accesskey="5" title="">Licenses</a></li>
 			<li><a href="#" accesskey="6" title="">Reports</a></li>
@@ -126,10 +127,6 @@
 				<tr>
 					<td align="left">PO Number:</td>
 					<td align="left"><input type="text" name="po_number"/></td>
-				</tr>
-				<tr>
-					<td align="left">Asset Deployed:</td>
-					<td align="left"><input type="text" name="deployed"/></td>
 				</tr>
 				<tr>
 					<td><br><input type="submit" name="addServer" value="Add Server" /></td>

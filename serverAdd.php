@@ -17,14 +17,12 @@ if (isset($_POST['addServer'])) //if addServer form is submitted
 	$misc_info = $db->quote($_POST["misc_info"]);
 	$u_size = filter_var(($_POST["u_size"]), FILTER_SANITIZE_NUMBER_INT);
 	$po_number = $db->quote($_POST["po_number"]);
-	$deployed = $db->quote($_POST["deployed"]);
 	
 	//Handles int values been turned into empty strings from form post which won't insert into INT database field unless NULL
 	if(empty($no_of_procs))
 	{
 		$no_of_procs = 'NULL';
 	}
-	
 	
 	if(empty($proc_cores))
 	{
@@ -38,17 +36,17 @@ if (isset($_POST['addServer'])) //if addServer form is submitted
 	
 	if(empty($purchase_date))
 	{
-	    $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed)
+	    $insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number)
 			VALUES ($serial_no,$vendor,$model_no, $type, NULL, $memory, $proc_type, $no_of_procs, $proc_cores, $proc_speed,
-			$misc_info, $u_size, $po_number, $deployed)");
+			$misc_info, $u_size, $po_number)");
 	}
 	
 	else
 	{
 	
-	$insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number, deployed) 
+	$insert = $db->query("INSERT INTO server (serial_no, vendor, model_no, type, purchase_date, memory, proc_type, no_of_procs, proc_cores, proc_speed, misc_info, u_size, po_number) 
 			VALUES ($serial_no,$vendor,$model_no, $type, '$purchase_date', $memory, $proc_type, $no_of_procs, $proc_cores, $proc_speed,
-			$misc_info, $u_size, $po_number, $deployed)");
+			$misc_info, $u_size, $po_number)");
 	}
 	
 	if($insert) //if values are inserted redirect / else give error
