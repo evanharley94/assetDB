@@ -23,8 +23,8 @@
 		<ul>
 			<li><a href="index.php" accesskey="1" title="">Homepage</a></li>
 			<li><a href="servers.php" accesskey="2" title="">Servers</a></li>
-			<li class="current_page_item"><a href="#" accesskey="3" title="">Networks</a></li>
-			<li><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
+			<li><a href="networks.php" accesskey="3" title="">Networks</a></li>
+			<li class="current_page_item"><a href="#" accesskey="4" title="">Hardware</a></li>
 			<li><a href="licenses.php" accesskey="5" title="">Licenses</a></li>
 			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
 			<li><a href="search.php" accesskey="7" title="">Search</a></li>
@@ -34,34 +34,34 @@
 <div id="featured-wrapper">
 	<div id="featured" class="container">
 		<div class="major">
-			<h2>Network Assets</h2>
+			<h2>Hardware Assets</h2>
 		</div>
 		<div class="column1">
-			<a href="network_asset.php"><span class="icon icon-cloud"></span></a>
+			<a href="hardware_asset.php"><span class="icon icon-laptop"></span></a>
 			<div class="title">
-				<h2><a href="assets.php">View Network Assets</a></h2>
-				<span class="byline">View Network assets</span>
+				<h2><a href="assets.php">View Hardware Assets</a></h2>
+				<span class="byline">View Hardware assets</span>
 			</div>
 		</div>
 		<div class="column2">
 			<a href=""><span class="icon icon-qrcode"></span></a>
 			<div class="title">
-				<h2><a href="networks.php">View deployed Assets</a></h2>
-				<span class="byline">View deployed network assets</span>
+				<h2><a href="">View deployed Hardware</a></h2>
+				<span class="byline">View deployed hardware assets</span>
 			</div>
 		</div>
 		<a href="#"><div id="" class="column3">
 			<span class="icon icon-plus"></span>
 			<div class="title">
-				<h2>Add a New Network</h2></a>
-				<span class="byline">Add a new network asset</span>
+				<h2>Add a New Hardware Asset</h2></a>
+				<span class="byline">Add a new Hardware asset</span>
 			</div>
 		</div>
 		<div class="column4">
 			<a href=""><span class="icon icon-home"></span></a>
 			<div class="title">
 				<h2><a href="licenses.php">Deploy an Asset</a></h2>
-				<span class="byline">Assign a Network Asset to a project / location</span>
+				<span class="byline">Assign a Hardware Asset to a project / location</span>
 			</div>
 		</div>
 	</div>

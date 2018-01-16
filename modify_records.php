@@ -57,6 +57,8 @@ if(isset($_POST['delete_row']))
 {
     $serial_no = $_POST['row_id'];
     $query = $db->query("DELETE FROM server WHERE serial_no='$serial_no'");
+    $query2 = $db->query("DELETE FROM server_usage WHERE serial_no='$serial_no'");
+    $query2 = $db->query("DELETE FROM maintenance WHERE serial_no='$serial_no'");
     
     echo "success";
     $db->close(); 

@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/fixedcolumns/3.2.3/js/dataTables.fixedColumns.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="server_crud.js"></script>
+<script src="hardware_crud.js"></script>
 
 </head>
 <body>
@@ -29,9 +29,9 @@
 	<div id="menu" class="container">
 		<ul>
 			<li><a href="index.php" accesskey="1" title="">Homepage</a></li>
-			<li class="current_page_item"><a href="servers.php" accesskey="2" title="">Servers</a></li>
+			<li><a href="servers.php" accesskey="2" title="">Servers</a></li>
 			<li><a href="networks.php" accesskey="3" title="">Networks</a></li>
-			<li><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
+			<li class="current_page_item"><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
 			<li><a href="licenses.php" accesskey="5" title="">Licenses</a></li>
 			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
 			<li><a href="search.php" accesskey="7" title="">Search</a></li>
@@ -41,15 +41,15 @@
 <div id="featured-wrapper">
 	<div id="featured" class="container2">
 		<div class="major">
-			<h2>Server Assets</h2>
+			<h2>Hardware Assets</h2>
 		</div>
 <div class="tab">
-  <button class="tablinks" onclick="openTable(event, 'server')" id="Btnserver">Server</button>
-  <button class="tablinks" onclick="openTable(event, 'server_usage')" id = "Btnserver_usage">Server Usage</button>
+  <button class="tablinks" onclick="openTable(event, 'hardware')" id="Btnhardware">Hardware</button>
+  <button class="tablinks" onclick="openTable(event, 'hardware_usage')" id = "Btnhardware_usage">Hardware Usage</button>
   <button class="tablinks" onclick="openTable(event, 'maint')" id = "Btnmaint" >Maintenance</button>
 </div>
 
-		<div id="server" class="tabcontent">
+		<div id="hardware" class="tabcontent">
 		<table id="assets" class="display">
     <thead>
         <tr>
@@ -59,13 +59,7 @@
             <th>Model</th>
             <th>Type</th>
             <th>Purchase Date</th>
-            <th>Memory</th>
-            <th>Processor Type</th>
-            <th>Processors</th>
-            <th>Cores</th>
-            <th>Speed</th>
             <th>Information</th>
-            <th>U Size</th>
             <th>PO Number</th>
             <th bgcolor ="#ffffff"></th> <!-- headings have a background colour of white as datatables fixed colum is transaparent so you can see text behind without it -->
             <th bgcolor ="#ffffff"></th>
@@ -75,7 +69,7 @@
     <tbody>
     
     	<?php 
-		$query = 'SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server';
+		$query = 'SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,po_number FROM hardware';
 		
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
@@ -90,13 +84,7 @@
             <td id="model_no_val<?php echo $row['serial_no'];?>"><?php echo($row['model_no']) ?></td>
             <td id="type_val<?php echo $row['serial_no'];?>"><?php echo($row['type']) ?></td>
             <td id="purchase_date_val<?php echo $row['serial_no'];?>"><?php echo($row['purchase_date']) ?></td>
-            <td id="memory_val<?php echo $row['serial_no'];?>"><?php echo($row['memory']) ?></td>
-            <td id="proc_type_val<?php echo $row['serial_no'];?>"><?php echo($row['proc_type']) ?></td>
-            <td id="no_of_procs_val<?php echo $row['serial_no'];?>"><?php echo($row['no_of_procs']) ?></td>
-            <td id="proc_cores_val<?php echo $row['serial_no'];?>"><?php echo($row['proc_cores']) ?></td>
-            <td id="proc_speed_val<?php echo $row['serial_no'];?>"><?php echo($row['proc_speed']) ?></td>
             <td id="misc_info_val<?php echo $row['serial_no'];?>"><?php echo($row['misc_info']) ?></td>
-            <td id="u_size_val<?php echo $row['serial_no'];?>"><?php echo($row['u_size']) ?></td>
             <td id="po_number_val<?php echo $row['serial_no'];?>"><?php echo($row['po_number']) ?></td>
       		<td><input type='button' class="material-icons" id="edit_button<?php echo $row['serial_no'];?>" value="edit" onclick="edit_row('<?php echo $row['serial_no'];?>');"/></td>
    			<td><input type='button' class="material-icons" id="save_button<?php echo $row['serial_no'];?>" value="save" onclick="save_row('<?php echo $row['serial_no'];?>');"/></td>
@@ -112,13 +100,7 @@
  			<td><input type="text" id="new_model" style="width:100px"/></td>
 			<td><input type="text" id="new_type" style="width:100px"/></td>
 			<td><input type="date" id="new_purchase_date" style="width:130px"/></td>
-			<td><input type="text" id="new_memory" style="width:100px"/></td>
-			<td><input type="text" id="new_proc_type" style="width:100px"/></td>
-			<td><input type="number" id="new_no_of_procs" style="width:100px"/></td>
-			<td><input type="number" id="new_proc_cores" style="width:100px"/></td>
-			<td><input type="text" id="new_proc_speed" style="width:100px"/></td>
 			<td><input type="text" id="new_misc_info" style="width:100px"/></td>
-			<td><input type="number" id="new_u_size" style="width:100px"/></td>
 			<td><input type="text" id="new_po_number" style="width:100px"/></td>
 			<td><input type="button" class="material-icons" value="add" onclick="insert_row(document.getElementById('new_id').value);"/></td>
 			<td></td>
@@ -128,8 +110,8 @@
     </tbody>
 </table>
 </div>
-<!--------------------------- SERVER USAGE ------------------------------------>
-<div id="server_usage" class="tabcontent">
+<!--------------------------- Hardware USAGE ------------------------------>
+<div id="hardware_usage" class="tabcontent">
 		<table id="usage" class="display">
     <thead>
         <tr>
@@ -147,7 +129,7 @@
     </thead>
     <tbody>
     	<?php 
-		$query = 'SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage';
+		$query = 'SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM hardware_usage';
 		
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
@@ -175,7 +157,7 @@
 			<td><select id = "new_serial_no" style="width:100px"/>
 			<?php 
 			require_once ('dbconnection.php'); //get database connection
-			$query = 'SELECT serial_no FROM server WHERE serial_no NOT IN (SELECT serial_no FROM server_usage)';
+			$query = 'SELECT serial_no FROM hardware WHERE serial_no NOT IN (SELECT serial_no FROM hardware_usage)';
 			$result = $db->query($query);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
 			{
@@ -183,7 +165,7 @@
 			}
 			?>
 			</select></td>
-			<td><input type="text" id="new_hostname" style="width:130px"/></td>
+			<td><input type="text" id="new_hostname" style="width:200px"/></td>
  			<td><input type="text" id="new_ip_address" style="width:100px"/></td>
 			<td><input type="text" id="new_project" style="width:100px"/></td>
 			<td><input type="date" id="new_start_date" style="width:130px"/></td>
@@ -215,7 +197,7 @@
     </thead>
         <tbody>
     	<?php 
-		$query = 'SELECT serial_no, company,reference,start_date,end_date FROM maintenance';
+		$query = 'SELECT serial_no, company,reference,start_date,end_date FROM hardware_maintenance';
 		
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
@@ -227,7 +209,7 @@
             <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="company_val<?php echo $row['serial_no'];?>"><?php echo($row['company'])?></td>  
             <td id="reference_val<?php echo $row['serial_no'];?>"><?php echo($row['reference']) ?></td>
-            <td id="start_date_val<?php echo $row['serial_no'];?>"><?php echo($row['start_date']) ?></td>
+            <td id="s_date_val<?php echo $row['serial_no'];?>"><?php echo($row['start_date']) ?></td>
             <td id="end_date_val<?php echo $row['serial_no'];?>"><?php echo($row['end_date']) ?></td>
       		<td><input type='button' class="material-icons" id="edit_button<?php echo $row['serial_no'];?>" value="edit" onclick="edit_row_main('<?php echo $row['serial_no'];?>');"/></td>
    			<td><input type='button' class="material-icons" id="save_button<?php echo $row['serial_no'];?>" value="save" onclick="save_row_main('<?php echo $row['serial_no'];?>');"/></td>
@@ -241,7 +223,7 @@
 			<td><select id = "main_serial_no" style="width:100px"/>
 			<?php 
 			require_once ('dbconnection.php'); //get database connection
-			$query = 'SELECT serial_no FROM server WHERE serial_no NOT IN (SELECT serial_no FROM maintenance)';
+			$query = 'SELECT serial_no FROM hardware WHERE serial_no NOT IN (SELECT serial_no FROM hardware_maintenance)';
 			$result = $db->query($query);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
 			{
@@ -265,10 +247,10 @@
 </div>
 <!-- --------------------------------------- Initalise data tables ------------------------------------------- -->
 <script>
-$(document).ready( function () //initalise server data table
+$(document).ready( function () //initalise hardware data table
 	{
    		var table = $('#assets').DataTable({
-      	 scrollX: true, //enable table to scroll horizontally
+      	 //scrollX: true, //enable table to scroll horizontally
          fixedColumns:   { // fix serial_no column and edit/delete/save options
              leftColumns: 1,
              rightColumns: 3
@@ -279,7 +261,7 @@ $(document).ready( function () //initalise server data table
    	    .draw();
 	} );
 
-$(document).ready( function () //initalise server usage data table
+$(document).ready( function () //initalise hardware usage data table
 		{
 	   		var table = $('#usage').DataTable({
 	      	// scrollX: true, //enable table to scroll horizontally
@@ -317,7 +299,7 @@ var seltab = sessionStorage.getItem('sel_tab');
 	} 
 	else 
 	{
-  		document.getElementById("Btnserver").click();
+  		document.getElementById("Btnhardware").click();
 	}
 
 function openTable(evt, tableName) {

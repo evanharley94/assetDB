@@ -31,10 +31,10 @@
 			<li><a href="index.php" accesskey="1" title="">Homepage</a></li>
 			<li><a href="servers.php" accesskey="2" title="">Servers</a></li>
 			<li class="current_page_item"><a href="#" accesskey="3" title="">Networks</a></li>
-			<li><a href="#" accesskey="4" title="">Hardware</a></li>
-			<li><a href="#" accesskey="5" title="">Licenses</a></li>
-			<li><a href="#" accesskey="6" title="">Reports</a></li>
-			<li><a href="#" accesskey="7" title="">Search</a></li>
+			<li><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
+			<li><a href="licenses.php" accesskey="5" title="">Licenses</a></li>
+			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
+			<li><a href="search.php" accesskey="7" title="">Search</a></li>
 		</ul>
 	</div>
 </div>
@@ -168,7 +168,7 @@
 			}
 			?>
 			</select></td>
-			<td><input type="text" id="new_hostname" style="width:130px"/></td>
+			<td><input type="text" id="new_hostname" style="width:200px"/></td>
  			<td><input type="text" id="new_ip_address" style="width:100px"/></td>
 			<td><input type="text" id="new_project" style="width:100px"/></td>
 			<td><input type="date" id="new_start_date" style="width:130px"/></td>
