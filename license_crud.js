@@ -1,7 +1,7 @@
 //**************************************
-// edit network table and save to DB using ajax
+// edit license table and save to DB using ajax
 
-function edit_row(serial_no)
+function edit_row_license(license_id)
 {	
  var vendor = document.getElementById("vendor_val"+serial_no).innerHTML; //get current value of field
  var model_no = document.getElementById("model_no_val"+serial_no).innerHTML;
@@ -23,7 +23,7 @@ function edit_row(serial_no)
  document.getElementById("save_button"+serial_no).style.display = "block"; // show save button
 }
 
-function save_row(serial_no)
+function save_row_license(license_id)
 {
  var vendor = document.getElementById("vendor_text"+serial_no).value; // equals new edited value
  var model_no = document.getElementById("model_text"+serial_no).value;
@@ -66,7 +66,7 @@ function save_row(serial_no)
  });
 }
 
-function delete_row(serial_no)
+function delete_row_license(license_id)
 {
 	var x = confirm("Are you sure you want to delete? All Maintenance, Warranty, useage & software records will also be removed for this asset!"); //if user confirms delete, then delete
     if (x){
@@ -127,7 +127,7 @@ function insert_row(serial_no)
 //**************************************
 //edit network table VLAN and save to DB using ajax
 
-function edit_row_vlan(vlan)
+function edit_row_license_usage(license_id)
 {
 
  var site = document.getElementById("site_val"+vlan).innerHTML; //get current value of field
@@ -149,7 +149,7 @@ function edit_row_vlan(vlan)
  
 }
 
-function save_row_vlan(vlan)
+function save_row_license_usage(license_id)
 {
  var site = document.getElementById("site_text"+vlan).value; // equals new edited value
  var description = document.getElementById("description_text"+vlan).value;
@@ -189,7 +189,7 @@ function save_row_vlan(vlan)
  });
 }
 
-function delete_row_vlan(vlan)
+function delete_row_license_usage(license_id)
 {
 	var x = confirm("Are you sure you want to delete?"); //if user confirms delete, then delete
     if (x){
@@ -213,7 +213,7 @@ function delete_row_vlan(vlan)
  window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after deleting.
 }}
 
-function insert_row_vlan(vlan)
+function insert_row_license_usage(license_id)
 {
 	 var vlan = document.getElementById("new_vlan").value;
 	 var site = document.getElementById("new_site").value; // equals new edited value
@@ -266,132 +266,6 @@ function insert_row_vlan(vlan)
 	    document.getElementById("new_gateway").value="";
 	  
 	    window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after inserting new row.
-   }
-  },
- });
-}
-
-//*************************************************************
-//edit maintenance table and save to DB using ajax
-
-function edit_row_main(serial_no)
-{
-var company = document.getElementById("company_val"+serial_no).innerHTML; //get current value of field
-var reference = document.getElementById("reference_val"+serial_no).innerHTML;
-var start_date = document.getElementById("s_date_val"+serial_no).innerHTML;
-var end_date = document.getElementById("end_date_val"+serial_no).innerHTML;
-
-document.getElementById("company_val"+serial_no).innerHTML = "<input type='text' id='company_text"+serial_no+"' value='"+company+"' style='width:170px'>"; //input current value into edit field
-document.getElementById("reference_val"+serial_no).innerHTML = "<input type='text' id='reference_text"+serial_no+"' value='"+reference+"' style='width:170px'>";
-document.getElementById("s_date_val"+serial_no).innerHTML = "<input type='date' id='start_date_text"+serial_no+"' value='"+start_date+"' style='width:130px'>";
-document.getElementById("end_date_val"+serial_no).innerHTML = "<input type='date' id='end_date_text"+serial_no+"' value='"+end_date+"' style='width:130px'>";
-
-document.getElementById("edit_button"+serial_no).style.display = "none"; //hide edit button as already editing row
-document.getElementById("save_button"+serial_no).style.display = "block"; // show save button
-
-}
-
-function save_row_main(serial_no)
-{
- var company = document.getElementById("company_text"+serial_no).value; // equals new edited value
- var reference = document.getElementById("reference_text"+serial_no).value;
- var start_date = document.getElementById("start_date_text"+serial_no).value;
- var end_date = document.getElementById("end_date_text"+serial_no).value;
- 
- $.ajax //ajax to post values to update DB
- ({
-  type:'post',
-  url:'network_modify_records.php',
-  data:{
-   edit_row_main:'edit_row_main',
-   id:serial_no,
-   company_val:company,
-   reference_val:reference,
-   start_date_val:start_date,
-   end_date_val:end_date,
-  },
-  success:function(response) 
-  {
-	  if(response="success") //if return value from SQL Update query is success
-	  {
-
-    document.getElementById("company_val"+serial_no).innerHTML = company; //print the new value back on the page
-    document.getElementById("reference_val"+serial_no).innerHTML = reference;
-    document.getElementById("s_date_val"+serial_no).innerHTML = start_date;
-    document.getElementById("end_date_val"+serial_no).innerHTML = end_date;
-    document.getElementById("edit_button"+serial_no).style.display = "block"; // make edit button re-appear
-	  } 
-   }
- });
-}
-
-function delete_row_main(serial_no)
-{
-	var x = confirm("Are you sure you want to delete?"); //if user confirms delete, then delete
-    if (x){
-
- $.ajax
- ({
-  type:'post',
-  url:'network_modify_records.php',
-  data:{
-   delete_row_main:'delete_row_main',
-   row_id:serial_no,
-  },
-  success:function(response) {
-   if(response="success")
-   {
-    var row = document.getElementById("row"+serial_no);
-    row.parentNode.removeChild(row);
-   }
-  }
- });
-window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after deleting.
-}}
-
-function insert_row_main(serial_no)
-{
-	var company = document.getElementById("new_company").value;
-	var reference = document.getElementById("new_reference").value;
-	var start_date = document.getElementById("main_start_date").value;
-	var end_date = document.getElementById("new_end_date").value;
-	
- $.ajax
- ({
-  type:'post',
-  url:'network_modify_records.php',
-  data:{
-   insert_row_main:'insert_row_main',
-   id:serial_no,
-   company_val:company,
-   reference_val:reference,
-   start_date_val:start_date,
-   end_date_val:end_date,
-  },
-  success:function(response) 
-  {
-   if(response!="") //insert new row into table without page refresh and reset new row line to empty
-   {
-	    var id = response;
-	    var table = document.getElementById("m1");
-	    var table_len = (table.rows.length)-1;
-	    var row = table.insertRow(table_len).outerHTML= "<tr class='table-tr' id='row"+id+"'>" +
-        "<td id='serial_no_val"+id+"'>"+serial_no+"</td>" +
-        "<td id='company_val"+id+"'>"+company+"</td>" + 
-        "<td id='reference_val"+id+"'>"+reference+"</td>" +
-        "<td id='start_date_val"+id+"'>"+start_date+"</td>" +
-        "<td id='end_date_val"+id+"'>"+end_date+"</td>" +
-  		"<td><input type='button' class='material-icons' id='edit_button"+id+"' value='edit' onclick='edit_row_main("+id+");'/></td>" +
-		"<td><input type='button' class='material-icons' id='save_button"+id+"' value='save' onclick='save_row_main("+id+");'/></td>" +
-		"<td><input type='button' class='material-icons' id='delete_button"+id+"' value='delete' onclick='delete_row_main("+id+");'/></td>"  +
-		"</tr>"
-		
-	    document.getElementById("new_company").value="";
-	    document.getElementById("new_reference").value="";
-	    document.getElementById("new_start_date").value="";
-	    document.getElementById("new_end_date").value="";
-	  
-	   window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after inserting new row.
    }
   },
  });

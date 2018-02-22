@@ -99,20 +99,20 @@ if(isset($_POST['insert_row']))
    
 }
 
-//******** Network Usage table modify records ****************************
+//******** Network VLAN table modify records ****************************
 
-if(isset($_POST['edit_row_usage']))
+if(isset($_POST['edit_row_vlan']))
 {
-    $serial_no = $_POST['id'];
-    $hostname = $_POST['hostname_val'];
-    $ip_address = $_POST['ip_address_val'];
+    $vlan = $_POST['vlan_val'];
+    $description = $_POST['description_val'];
+    $site = $_POST['site_val'];
     $project = $_POST['project_val'];
-    $start_date = $_POST['start_date_val'];
-    $expected_end_date = $_POST['expected_end_date_val'];
-    $location = $_POST['location_val'];
+    $ip_range = $_POST['ip_range_val'];
+    $subnet = $_POST['subnet_val'];
+    $gateway = $_POST['gateway_val'];
     
-    $query = $db->query("UPDATE network_usage SET hostname='$hostname',ip_address='$ip_address',project='$project',start_date=IF('$start_date'='',NULL,'$start_date'),expected_end_date=IF('$expected_end_date'='',NULL,'$expected_end_date'), location='$location'
-       where serial_no='$serial_no'"); // if dates are empty, must be converted to NULL for INSERT
+    $query = $db->query("UPDATE network_vlan SET site='$site',description='$description', project='$project', ip_range='$ip_range', subnet='$subnet', gateway ='$gateway'
+       where vlan='$vlan'"); // if dates are empty, must be converted to NULL for INSERT
 
     if ($db->rowCount() > 0)
     {
@@ -125,31 +125,31 @@ if(isset($_POST['edit_row_usage']))
     $db->close();   
 }
 
-if(isset($_POST['delete_row_usage']))
+if(isset($_POST['delete_row_vlan']))
 {
-    $serial_no = $_POST['row_id'];
-    $query = $db->query("DELETE FROM network_usage WHERE serial_no='$serial_no'");
+    $vlan = $_POST['row_id'];
+    $query = $db->query("DELETE FROM network_vlan WHERE vlan='$vlan'");
     
     echo "success";
     $db->close();
 }
 
-if(isset($_POST['insert_row_usage']))
+if(isset($_POST['insert_row_vlan']))
 {
-    $serial_no = $_POST['id'];
-    $hostname = $_POST['hostname_val'];
-    $ip_address = $_POST['ip_address_val'];
+    $vlan = $_POST['vlan_val'];
+    $description = $_POST['description_val'];
+    $site = $_POST['site_val'];
     $project = $_POST['project_val'];
-    $start_date = $_POST["start_date_val"];
-    $expected_end_date = $_POST['expected_end_date_val'];
-    $location = $_POST['location_val'];
+    $ip_range = $_POST['ip_range_val'];
+    $subnet = $_POST['subnet_val'];
+    $gateway = $_POST['gateway_val'];
     
-    $insert = $db->query("INSERT INTO network_usage (serial_no, hostname, ip_address, project, start_date, expected_end_date, location)
-        VALUES ('$serial_no','$hostname','$ip_address', '$project', IF('$start_date'='',NULL,'$start_date'), IF('$expected_end_date'='',NULL,'$expected_end_date'), '$location')");
+    $insert = $db->query("INSERT INTO network_vlan (vlan, description, site, project, ip_range, subnet, gateway)
+        VALUES ('$vlan','$description','$site', '$project', '$ip_range', '$subnet', '$gateway')");
     
     if($insert)
     {
-        echo $serial_no; //serial_no returned so input fields can be named as per the others in the dataTables
+        echo $vlan; //serial_no returned so input fields can be named as per the others in the dataTables
     }
     
     else

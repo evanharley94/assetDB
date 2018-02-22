@@ -85,7 +85,7 @@
                 ?>     
         <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
         	<td style="display:none;"></td>
-            <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
+            <td id="serial_no_val<?php echo $row['serial_no'];?>"> <a href='server_view.php?id=<?php echo $row['serial_no']?>'><?php echo($serial_no = $row['serial_no']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="vendor_val<?php echo $row['serial_no'];?>"><?php echo($row['vendor'])?></td>  
             <td id="model_no_val<?php echo $row['serial_no'];?>"><?php echo($row['model_no']) ?></td>
             <td id="type_val<?php echo $row['serial_no'];?>"><?php echo($row['type']) ?></td>

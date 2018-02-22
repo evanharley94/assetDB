@@ -44,10 +44,75 @@
 			<h2>Network Assets</h2>
 		</div>
 <div class="tab">
+  <button class="tablinks" onclick="openTable(event, 'network_vlan')" id = "Btnnetwork_vlan">Network VLAN</button>
   <button class="tablinks" onclick="openTable(event, 'network')" id="Btnnetwork">Network</button>
-  <button class="tablinks" onclick="openTable(event, 'network_usage')" id = "Btnnetwork_usage">Network Usage</button>
   <button class="tablinks" onclick="openTable(event, 'maint')" id = "Btnmaint" >Maintenance</button>
 </div>
+
+		<div id="network_vlan" class="tabcontent">
+		<table id="vlans" class="display">
+    <thead>
+        <tr>
+        	<th style="display:none;"></th>
+            <th bgcolor="#ffffff">VLAN Name</th>
+            <th>Site</th>
+            <th>Description</th>
+            <th>Project</th>
+            <th>IP Address Range</th>
+            <th>Subnet Mask</th>
+            <th>Gateway</th>
+            <th bgcolor ="#ffffff"></th> <!-- headings have a background colour of white as datatables fixed colum is transaparent so you can see text behind without it -->
+            <th bgcolor ="#ffffff"></th>
+            <th bgcolor ="#ffffff"></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    	<?php 
+		$query = 'SELECT vlan,site,description,project,ip_range,subnet,gateway FROM network_vlan';
+		
+		require_once ('dbconnection.php'); //get database connection
+            $data = $db->query($query);
+            $data->setFetchMode(PDO::FETCH_ASSOC);
+            foreach ($data as $row) 
+            {
+                ?>     
+        <tr class="table-tr" id="row<?php echo $row['vlan'];?>">
+        	<td style="display:none;"></td>
+            <td id="vlan_val<?php echo $row['vlan'];?>"><?php echo($vlan = $row['vlan']) ?></td> <!-- x_val + primarykey is needed to make each id unique or it will fail -->
+            <td id="site_val<?php echo $row['vlan'];?>"><?php echo($row['site'])?></td>  
+            <td id="description_val<?php echo $row['vlan'];?>"><?php echo($row['description']) ?></td>
+            <td id="project_val<?php echo $row['vlan'];?>"><?php echo($row['project']) ?></td>
+            <td id="ip_range_val<?php echo $row['vlan'];?>"><?php echo($row['ip_range']) ?></td>
+            <td id="subnet_val<?php echo $row['vlan'];?>"><?php echo($row['subnet']) ?></td>
+            <td id="gateway_val<?php echo $row['vlan'];?>"><?php echo($row['gateway']) ?></td>
+      		<td><input type='button' class="material-icons" id="edit_button<?php echo $row['vlan'];?>" value="edit" onclick="edit_row_vlan('<?php echo $row['vlan'];?>');"/></td>
+   			<td><input type='button' class="material-icons" id="save_button<?php echo $row['vlan'];?>" value="save" onclick="save_row_vlan('<?php echo $row['vlan'];?>');"/></td>
+   			<td><input type='button' class="material-icons" id="delete_button<?php echo $row['vlan'];?>" value="delete" onclick="delete_row_vlan('<?php echo $row['vlan'];?>');"/></td>   
+      </tr>
+
+			<?php }?> 
+		<!----------- Too insert new row -------------->	
+        <tr id="new_row">
+        	<td style="display:none;"></td> 
+			<td><input type="text" id="new_vlan" style="width:150px"/></td>
+ 			<td><input type="text" id="new_site" style="width:100px"/></td>
+			<td><input type="text" id="new_description" style="width:150px"/></td>
+			<td><input type="text" id="new_project" style="width:100px"/></td>
+			<td><input type="text" id="new_ip_range" style="width:150px"/></td>
+			<td><input type="text" id="new_subnet" style="width:120px"/></td>
+			<td><input type="text" id="new_gateway" style="width:120px"/></td>
+			<td><input type="button" class="material-icons" value="add" onclick="insert_row_vlan(document.getElementById('new_vlan').value);"/></td>
+			<td></td>
+			<td></td>
+		</tr> 			
+
+    </tbody>
+</table>
+</div>
+
+
+<!-- ---------------NETWORK ------------------------>
 
 		<div id="network" class="tabcontent">
 		<table id="assets" class="display">
@@ -113,75 +178,6 @@
     </tbody>
 </table>
 </div>
-<!--------------------------- NETWORK USAGE ------------------------------>
-<div id="network_usage" class="tabcontent">
-		<table id="usage" class="display">
-    <thead>
-        <tr>
-            <th>Serial Number</th>
-            <th>Hostname</th>
-            <th>IP Address</th>
-            <th>Project</th>
-            <th>Start Date</th>
-            <th>Expected End Date</th>
-            <th>Location</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    	<?php 
-		$query = 'SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM network_usage';
-		
-		require_once ('dbconnection.php'); //get database connection
-            $data = $db->query($query);
-            $data->setFetchMode(PDO::FETCH_ASSOC);
-            foreach ($data as $row)
-            {
-                ?>
-        <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
-            <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
-            <td id="hostname_val<?php echo $row['serial_no'];?>"><?php echo($row['hostname'])?></td>  
-            <td id="ip_address_val<?php echo $row['serial_no'];?>"><?php echo($row['ip_address']) ?></td>
-            <td id="project_val<?php echo $row['serial_no'];?>"><?php echo($row['project']) ?></td>
-            <td id="start_date_val<?php echo $row['serial_no'];?>"><?php echo($row['start_date']) ?></td>
-            <td id="expected_end_date_val<?php echo $row['serial_no'];?>"><?php echo($row['expected_end_date']) ?></td>
-            <td id="location_val<?php echo $row['serial_no'];?>"><?php echo($row['location']) ?></td>
-      		<td><input type='button' class="material-icons" id="edit_button<?php echo $row['serial_no'];?>" value="edit" onclick="edit_row_usage('<?php echo $row['serial_no'];?>');"/></td>
-   			<td><input type='button' class="material-icons" id="save_button<?php echo $row['serial_no'];?>" value="save" onclick="save_row_usage('<?php echo $row['serial_no'];?>');"/></td>
-   			<td><input type='button' class="material-icons" id="delete_button<?php echo $row['serial_no'];?>" value="delete" onclick="delete_row_usage('<?php echo $row['serial_no'];?>');"/></td>   
-      </tr>
-    		<?php }?>
-    		
-    				<!----------- Too insert new row -------------->	
-        <tr id="new_row">
-        	<td style="display:none;"></td> 
-			<td><select id = "new_serial_no" style="width:100px"/>
-			<?php 
-			require_once ('dbconnection.php'); //get database connection
-			$query = 'SELECT serial_no FROM network WHERE serial_no NOT IN (SELECT serial_no FROM network_usage)';
-			$result = $db->query($query);
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
-			{
-			    echo "<option value='" . $row['serial_no'] ."'>" . $row['serial_no'] ."</option>";
-			}
-			?>
-			</select></td>
-			<td><input type="text" id="new_hostname" style="width:200px"/></td>
- 			<td><input type="text" id="new_ip_address" style="width:100px"/></td>
-			<td><input type="text" id="new_project" style="width:100px"/></td>
-			<td><input type="date" id="new_start_date" style="width:130px"/></td>
-			<td><input type="date" id="new_expected_end_date" style="width:130px"/></td>
-			<td><input type="text" id="new_location" style="width:100px"/></td>
-			<td><input type="button" class="material-icons" value="add" onclick="insert_row_usage(document.getElementById('new_serial_no').value);"/></td>
-			<td></td>
-			<td></td>
-		</tr>
-    </tbody>
-    </table>
-</div>
-
 
 <!-------------------------------- MAINTENANCE ------------------------------------------------>
 <div id="maint" class="tabcontent">
@@ -264,16 +260,16 @@ $(document).ready( function () //initalise network data table
    	    .draw();
 	} );
 
-$(document).ready( function () //initalise network usage data table
+$(document).ready( function () //initalise network vlan data table
 		{
-	   		var table = $('#usage').DataTable({
+	   		var table = $('#vlans').DataTable({
 	      	// scrollX: true, //enable table to scroll horizontally
 	         fixedColumns:   { // fix serial_no column and edit/delete/save options
 	             leftColumns: 1,
 	             rightColumns: 3
 	         }}); 
 	   		table
-	   	    .column( '0:visible' ) // order colum serial_no ascending
+	   	    .column( '1:visible' ) // order colum vlan ascending
 	   	    .order( 'asc' )
 	   	    .draw();
 		} );
@@ -302,7 +298,7 @@ var seltab = sessionStorage.getItem('sel_tab');
 	} 
 	else 
 	{
-  		document.getElementById("Btnnetwork").click();
+  		document.getElementById("Btnnetwork_vlan").click();
 	}
 
 function openTable(evt, tableName) {
