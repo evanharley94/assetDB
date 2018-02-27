@@ -71,8 +71,17 @@
     <tbody>
     
     	<?php 
+    	// if user clicks on an asset, load only that asset in JQUERY table
+    	if (isset($_GET['id']))
+    	{
+    	    $license = $_GET['id'];
+    	    $query = "SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license WHERE license = '$license'";
+    	}
+    	
+    	else
+    	{
 		$query = 'SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license';
-		
+    	}
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
             $data->setFetchMode(PDO::FETCH_ASSOC);
@@ -81,7 +90,7 @@
                 ?>     
         <tr class="table-tr" id="row<?php echo $row['license_id'];?>">
         	<td style="display:none;"></td>
-            <td id="license_val<?php echo $row['license_id'];?>"><?php echo($license = $row['license']) ?></td> <!-- x_val + primarykey is needed to make each id unique or it will fail -->
+            <td id="license_val<?php echo $row['license_id'];?>"><a href='license_asset.php?id=<?php echo $row['license']?>'><?php echo($license = $row['license']) ?></a></td> <!-- x_val + primarykey is needed to make each id unique or it will fail -->
             <td id="quantity_val<?php echo $row['license_id'];?>"><?php echo($row['quantity'])?></td> 
             <td id="in_use_val<?php echo $row['license_id'];?>"><?php $inUseQuery = $db->query("SELECT SUM(quantity) FROM license_usage WHERE license='$license'");$inUse = $inUseQuery->fetch(PDO::FETCH_ASSOC); foreach ($inUse as $key => $val) {echo $val;};?></td>
             <td id="description_val<?php echo $row['license_id'];?>"><?php echo($row['description']) ?></td>
@@ -142,8 +151,17 @@
     <tbody>
     
     	<?php 
+    	// if user clicks on an asset, load only that asset in JQUERY table
+    	if (isset($_GET['id']))
+    	{
+    	    $license = $_GET['id'];
+    	    $query = "SELECT license_id, license, hostname,quantity,start_date,end_date,project,details FROM license_usage WHERE license = '$license'";
+    	}
+    	
+    	else
+    	{
 		$query = 'SELECT license_id, license, hostname,quantity,start_date,end_date,project,details FROM license_usage';
-		
+    	}
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
             $data->setFetchMode(PDO::FETCH_ASSOC);
@@ -152,7 +170,7 @@
                 ?>     
         <tr class="table-tr" id="row<?php echo $row['license_id'];?>">
         	<td style="display:none;"></td>
-            <td id="license_val<?php echo $row['license_id'];?>"><?php echo($license = $row['license']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
+            <td id="license_val<?php echo $row['license_id'];?>"><a href='license_asset.php?id=<?php echo $row['license']?>'><?php echo($license = $row['license']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="hostname_val<?php echo $row['license_id'];?>"><?php echo($row['hostname'])?></td>  
             <td id="quantity_val<?php echo $row['license_id'];?>"><?php echo($row['quantity']) ?></td>
             <td id="start_date_val<?php echo $row['license_id'];?>"><?php echo($row['start_date']) ?></td>
