@@ -3,67 +3,89 @@
 
 function edit_row_license(license_id)
 {	
- var vendor = document.getElementById("vendor_val"+serial_no).innerHTML; //get current value of field
- var model_no = document.getElementById("model_no_val"+serial_no).innerHTML;
- var type = document.getElementById("type_val"+serial_no).innerHTML;
- var purchase_date = document.getElementById("purchase_date_val"+serial_no).innerHTML;
- var misc_info = document.getElementById("misc_info_val"+serial_no).innerHTML;
- var u_size = document.getElementById("u_size_val"+serial_no).innerHTML;
- var po_number = document.getElementById("po_number_val"+serial_no).innerHTML;
+ var license = document.getElementById("license_val"+license_id).innerHTML; //get current value of field
+ var quantity = document.getElementById("quantity_val"+license_id).innerHTML;
+ var description = document.getElementById("description_val"+license_id).innerHTML;
+ var purchase_date = document.getElementById("purchase_date_val"+license_id).innerHTML;
+ var m_date = document.getElementById("m_date_val"+license_id).innerHTML;
+ var po_number = document.getElementById("po_number_val"+license_id).innerHTML;
+ var supplier = document.getElementById("supplier_val"+license_id).innerHTML;
+ var cost = document.getElementById("cost_val"+license_id).innerHTML;
+ var renewal_info = document.getElementById("renewal_info_val"+license_id).innerHTML;
 
- document.getElementById("vendor_val"+serial_no).innerHTML = "<input type='text' id='vendor_text"+serial_no+"' value='"+vendor+"' style='width:100px'>"; //input current value into edit field
- document.getElementById("model_no_val"+serial_no).innerHTML = "<input type='text' id='model_text"+serial_no+"' value='"+model_no+"' style='width:100px'>";
- document.getElementById("type_val"+serial_no).innerHTML = "<input type='text' id='type_text"+serial_no+"' value='"+type+"' style='width:100px'>";
- document.getElementById("purchase_date_val"+serial_no).innerHTML = "<input type='date' id='purchase_date_text"+serial_no+"' value='"+purchase_date+"' style='width:130px'>";
- document.getElementById("misc_info_val"+serial_no).innerHTML = "<input type='text' id='misc_info_text"+serial_no+"' value='"+misc_info+"' style='width:100px'>";
- document.getElementById("u_size_val"+serial_no).innerHTML = "<input type='number' id='u_size_text"+serial_no+"' value='"+u_size+"' style='width:100px'>";
- document.getElementById("po_number_val"+serial_no).innerHTML = "<input type='text' id='po_number_text"+serial_no+"' value='"+po_number+"' style='width:100px'>";
+ document.getElementById("license_val"+license_id).innerHTML = "<input type='text' id='license_text"+license_id+"' value='"+license+"' style='width:150px'>"; //input current value into edit field
+ document.getElementById("quantity_val"+license_id).innerHTML = "<input type='number' id='quantity_text"+license_id+"' value='"+quantity+"' style='width:100px'>";
+ document.getElementById("description_val"+license_id).innerHTML = "<input type='text' id='description_text"+license_id+"' value='"+description+"' style='width:150px'>";
+ document.getElementById("purchase_date_val"+license_id).innerHTML = "<input type='date' id='purchase_date_text"+license_id+"' value='"+purchase_date+"' style='width:130px'>";
+ document.getElementById("m_date_val"+license_id).innerHTML = "<input type='date' id='m_date_text"+license_id+"' value='"+m_date+"' style='width:130px'>";
+ document.getElementById("po_number_val"+license_id).innerHTML = "<input type='text' id='po_number_text"+license_id+"' value='"+po_number+"' style='width:100px'>";
+ document.getElementById("supplier_val"+license_id).innerHTML = "<input type='text' id='supplier_text"+license_id+"' value='"+supplier+"' style='width:100px'>";
+ document.getElementById("cost_val"+license_id).innerHTML = "<input type='text' id='cost_text"+license_id+"' value='"+cost+"' style='width:120px'>";
+ document.getElementById("renewal_info_val"+license_id).innerHTML = "<input type='text' id='renewal_info_text"+license_id+"' value='"+renewal_info+"' style='width:160px'>";
 	
- document.getElementById("edit_button"+serial_no).style.display = "none"; //hide edit button as already editing row
- document.getElementById("save_button"+serial_no).style.display = "block"; // show save button
+ document.getElementById("edit_button"+license_id).style.display = "none"; //hide edit button as already editing row
+ document.getElementById("save_button"+license_id).style.display = "block"; // show save button
+ 
+ 
 }
 
 function save_row_license(license_id)
 {
- var vendor = document.getElementById("vendor_text"+serial_no).value; // equals new edited value
- var model_no = document.getElementById("model_text"+serial_no).value;
- var type = document.getElementById("type_text"+serial_no).value;
- var purchase_date = document.getElementById("purchase_date_text"+serial_no).value;
- var misc_info = document.getElementById("misc_info_text"+serial_no).value;
- var u_size = document.getElementById("u_size_text"+serial_no).value;
- var po_number = document.getElementById("po_number_text"+serial_no).value;
+ 
+ var license = document.getElementById("license_text"+license_id).value;
+ var quantity = document.getElementById("quantity_text"+license_id).value;
+ var description = document.getElementById("description_text"+license_id).value;
+ var purchase_date = document.getElementById("purchase_date_text"+license_id).value;
+ var m_date = document.getElementById("m_date_text"+license_id).value;
+ var po_number = document.getElementById("po_number_text"+license_id).value;
+ var supplier = document.getElementById("supplier_text"+license_id).value;
+ var cost = document.getElementById("cost_text"+license_id).value;
+ var renewal_info = document.getElementById("renewal_info_text"+license_id).value;
+ 
+	if (quantity <= 0)
+	{
+		alert("License quantity can not be 0 or less!")
+	}
+	
+	else
+		{
  
  $.ajax //ajax to post values to update DB
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
    edit_row:'edit_row',
-   id:serial_no,
-   vendor_val:vendor,
-   model_no_val:model_no,
-   type_val:type,
-   purchase_date_val:purchase_date,
-   misc_info_val:misc_info,
-   u_size_val:u_size,
-   po_number_val:po_number,
+   id:license_id,
+   license:license,
+   quantity:quantity,
+   description:description,
+   purchase_date:purchase_date,
+   m_date:m_date,
+   po_number:po_number,
+   supplier:supplier,
+   cost:cost,
+   renewal_info:renewal_info,
   },
   success:function(response) 
   {
 	  if(response="success") //if return value from SQL Update query is success
 	  {
 
-    document.getElementById("vendor_val"+serial_no).innerHTML = vendor; //print the new value back on the page
-    document.getElementById("model_no_val"+serial_no).innerHTML = model_no;
-    document.getElementById("type_val"+serial_no).innerHTML = type;
-    document.getElementById("purchase_date_val"+serial_no).innerHTML = purchase_date;
-    document.getElementById("misc_info_val"+serial_no).innerHTML = misc_info;
-    document.getElementById("u_size_val"+serial_no).innerHTML = u_size;
-    document.getElementById("po_number_val"+serial_no).innerHTML = po_number;
-    document.getElementById("edit_button"+serial_no).style.display = "block"; // make edit button re-appear
+    document.getElementById("license_val"+license_id).innerHTML = license; //print the new value back on the page
+    document.getElementById("quantity_val"+license_id).innerHTML = quantity;
+    document.getElementById("description_val"+license_id).innerHTML = description;
+    document.getElementById("purchase_date_val"+license_id).innerHTML = purchase_date;
+    document.getElementById("m_date_val"+license_id).innerHTML = m_date;
+    document.getElementById("po_number_val"+license_id).innerHTML = po_number;
+    document.getElementById("supplier_val"+license_id).innerHTML = supplier;
+    document.getElementById("cost_val"+license_id).innerHTML = cost;
+    document.getElementById("renewal_info_val"+license_id).innerHTML = renewal_info;
+    document.getElementById("edit_button"+license_id).style.display = "block"; // make edit button re-appear
 	  } 
    }
  });
+		}
 }
 
 function delete_row_license(license_id)
@@ -74,15 +96,15 @@ function delete_row_license(license_id)
  $.ajax
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
    delete_row:'delete_row',
-   row_id:serial_no,
+   row_id:license_id,
   },
   success:function(response) {
    if(response="success")
    {
-    var row = document.getElementById("row"+serial_no);
+    var row = document.getElementById("row"+license_id);
     row.parentNode.removeChild(row);
    }
   }
@@ -90,30 +112,41 @@ function delete_row_license(license_id)
  window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after deleting.
 }}
 
-function insert_row(serial_no)
-{
-	var vendor = document.getElementById("new_vendor").value;
-	var model_no = document.getElementById("new_model").value;
-	var type = document.getElementById("new_type").value;
-	var misc_info = document.getElementById("new_misc_info").value;
-	var u_size = document.getElementById("new_u_size").value;
-	var po_number = document.getElementById("new_po_number").value;
-	var purchase_date = document.getElementById("new_purchase_date").value;
-	
+function insert_row_license()
+{	
+	 var license = document.getElementById("new_license").value;
+	 var quantity = document.getElementById("new_quantity").value;
+	 var description = document.getElementById("new_description").value;
+	 var purchase_date = document.getElementById("new_purchase_date").value;
+	 var m_date = document.getElementById("new_m_date").value;
+	 var po_number = document.getElementById("new_po_number").value;
+	 var supplier = document.getElementById("new_supplier").value;
+	 var cost = document.getElementById("new_cost").value;
+	 var renewal_info = document.getElementById("new_renewal_info").value;
+	 
+		if (quantity <= 0)
+		{
+			alert("License quantity can not be 0 or less!")
+		}
+		
+		else
+			{
+	 
  $.ajax
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
    insert_row:'insert_row',
-   id:serial_no,
-   vendor_val:vendor,
-   model_no_val:model_no,
-   type_val:type,
-   misc_info_val:misc_info,
-   u_size_val:u_size,
-   po_number_val:po_number,
-   purchase_date_val:purchase_date,
+   license:license,
+   quantity:quantity,
+   description:description,
+   purchase_date:purchase_date,
+   m_date:m_date,
+   po_number:po_number,
+   supplier:supplier,
+   cost:cost,
+   renewal_info:renewal_info,
   },
   success:function(response) 
   {
@@ -122,71 +155,79 @@ function insert_row(serial_no)
 	   window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after inserting new row.
    }
   },
- });
+ });}
 }
 //**************************************
-//edit network table VLAN and save to DB using ajax
+//edit license usage and save to DB using ajax
 
 function edit_row_license_usage(license_id)
 {
 
- var site = document.getElementById("site_val"+vlan).innerHTML; //get current value of field
- var description = document.getElementById("description_val"+vlan).innerHTML;
- var project = document.getElementById("project_val"+vlan).innerHTML;
- var ip_range = document.getElementById("ip_range_val"+vlan).innerHTML;
- var subnet = document.getElementById("subnet_val"+vlan).innerHTML;
- var gateway = document.getElementById("gateway_val"+vlan).innerHTML;
+ var hostname = document.getElementById("hostname_val"+license_id).innerHTML;
+ var quantity = document.getElementById("quantity_val"+license_id).innerHTML;
+ var start_date = document.getElementById("start_date_val"+license_id).innerHTML;
+ var end_date = document.getElementById("end_date_val"+license_id).innerHTML;
+ var project = document.getElementById("project_val"+license_id).innerHTML;
+ var details = document.getElementById("details_val"+license_id).innerHTML;
 
- document.getElementById("site_val"+vlan).innerHTML = "<input type='text' id='site_text"+vlan+"' value='"+site+"' style='width:100px'>"; //input current value into edit field
- document.getElementById("description_val"+vlan).innerHTML = "<input type='text' id='description_text"+vlan+"' value='"+description+"' style='width:150px'>";
- document.getElementById("project_val"+vlan).innerHTML = "<input type='text' id='project_text"+vlan+"' value='"+project+"' style='width:100px'>";
- document.getElementById("ip_range_val"+vlan).innerHTML = "<input type='text' id='ip_range_text"+vlan+"' value='"+ip_range+"' style='width:150px'>";
- document.getElementById("subnet_val"+vlan).innerHTML = "<input type='text' id='subnet_text"+vlan+"' value='"+subnet+"' style='width:120px'>";
- document.getElementById("gateway_val"+vlan).innerHTML = "<input type='text' id='gateway_text"+vlan+"' value='"+gateway+"' style='width:120px'>";
+ document.getElementById("hostname_val"+license_id).innerHTML = "<input type='text' id='hostname_text"+license_id+"' value='"+hostname+"' style='width:150px'>"; //input current value into edit field
+ document.getElementById("quantity_val"+license_id).innerHTML = "<input type='number' id='quantity_text"+license_id+"' value='"+quantity+"' style='width:130px'>";
+ document.getElementById("start_date_val"+license_id).innerHTML = "<input type='date' id='start_date_text"+license_id+"' value='"+start_date+"' style='width:130px'>";
+ document.getElementById("end_date_val"+license_id).innerHTML = "<input type='date' id='end_date_text"+license_id+"' value='"+end_date+"' style='width:130px'>";
+ document.getElementById("project_val"+license_id).innerHTML = "<input type='text' id='project_text"+license_id+"' value='"+project+"' style='width:100px'>";
+ document.getElementById("details_val"+license_id).innerHTML = "<input type='text' id='details_text"+license_id+"' value='"+details+"' style='width:150px'>";
 	
- document.getElementById("edit_button"+vlan).style.display = "none"; //hide edit button as already editing row
- document.getElementById("save_button"+vlan).style.display = "block"; // show save button
+ document.getElementById("edit_button"+license_id).style.display = "none"; //hide edit button as already editing row
+ document.getElementById("save_button"+license_id).style.display = "block"; // show save button
  
 }
 
 function save_row_license_usage(license_id)
 {
- var site = document.getElementById("site_text"+vlan).value; // equals new edited value
- var description = document.getElementById("description_text"+vlan).value;
- var project = document.getElementById("project_text"+vlan).value;
- var ip_range = document.getElementById("ip_range_text"+vlan).value;
- var subnet = document.getElementById("subnet_text"+vlan).value;
- var gateway = document.getElementById("gateway_text"+vlan).value;
+ var hostname = document.getElementById("hostname_text"+license_id).value; // equals new edited value
+ var quantity = document.getElementById("quantity_text"+license_id).value;
+ var start_date = document.getElementById("start_date_text"+license_id).value;
+ var end_date = document.getElementById("end_date_text"+license_id).value;
+ var project = document.getElementById("project_text"+license_id).value;
+ var details = document.getElementById("details_text"+license_id).value;
+ 
+ if (quantity <= 0)
+	{
+		alert("License quantity can not be 0 or less!")
+	}
+	
+	else
+		{
  
  $.ajax //ajax to post values to update DB
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
-   edit_row_vlan:'edit_row_vlan',
-   vlan_val:vlan,
-   description_val:description,
-   site_val:site,
-   project_val:project,
-   ip_range_val:ip_range,
-   subnet_val:subnet,
-   gateway_val:gateway
+   edit_row_usage:'edit_row_usage',
+   license_id:license_id,
+   hostname:hostname,
+   quantity:quantity,
+   start_date:start_date,
+   end_date:end_date,
+   project:project,
+   details:details,
   },
   success:function(response) 
   {
 	  if(response="success") //if return value from SQL Update query is success
 	  {
 
-    document.getElementById("site_val"+vlan).innerHTML = site; //print the new value back on the page
-    document.getElementById("description_val"+vlan).innerHTML = description;
-    document.getElementById("project_val"+vlan).innerHTML = project;
-    document.getElementById("ip_range_val"+vlan).innerHTML = ip_range;
-    document.getElementById("subnet_val"+vlan).innerHTML = subnet;
-    document.getElementById("gateway_val"+vlan).innerHTML = gateway;
-    document.getElementById("edit_button"+vlan).style.display = "block"; // make edit button re-appear
+    document.getElementById("hostname_val"+license_id).innerHTML = hostname; //print the new value back on the page
+    document.getElementById("quantity_val"+license_id).innerHTML = quantity;
+    document.getElementById("start_date_val"+license_id).innerHTML = start_date;
+    document.getElementById("end_date_val"+license_id).innerHTML = end_date;
+    document.getElementById("project_val"+license_id).innerHTML = project;
+    document.getElementById("details_val"+license_id).innerHTML = details;
+    document.getElementById("edit_button"+license_id).style.display = "block"; // make edit button re-appear
 	  } 
    }
- });
+ });}
 }
 
 function delete_row_license_usage(license_id)
@@ -197,15 +238,15 @@ function delete_row_license_usage(license_id)
  $.ajax
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
-   delete_row_vlan:'delete_row_vlan',
-   row_id:vlan,
+   delete_row_license_usage:'delete_row_license_usage',
+   row_id:license_id,
   },
   success:function(response) {
    if(response="success")
    {
-    var row = document.getElementById("row"+vlan);
+    var row = document.getElementById("row"+license_id);
     row.parentNode.removeChild(row);
    }
   }
@@ -213,60 +254,46 @@ function delete_row_license_usage(license_id)
  window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after deleting.
 }}
 
-function insert_row_license_usage(license_id)
+function insert_row_license_usage()
 {
-	 var vlan = document.getElementById("new_vlan").value;
-	 var site = document.getElementById("new_site").value; // equals new edited value
-	 var description = document.getElementById("new_description").value;
-	 var project = document.getElementById("new_project").value;
-	 var ip_range = document.getElementById("new_ip_range").value;
-	 var subnet = document.getElementById("new_subnet").value;
-	 var gateway = document.getElementById("new_gateway").value;
+     var license = document.getElementById("new_use_license").value;
+	 var hostname = document.getElementById("new_use_hostname").value;
+	 var quantity = document.getElementById("new_use_quantity").value; // equals new edited value
+	 var start_date = document.getElementById("new_use_start_date").value;
+	 var end_date = document.getElementById("new_use_end_date").value;
+	 var project = document.getElementById("new_use_project").value;
+	 var details = document.getElementById("new_use_details").value;
+	 
+	 if (quantity <= 0)
+		{
+			alert("License quantity can not be 0 or less!")
+		}
+		
+		else
+			{
+	 
 	
  $.ajax
  ({
   type:'post',
-  url:'network_modify_records.php',
+  url:'license_modify_records.php',
   data:{
-   insert_row_vlan:'insert_row_vlan',
-   vlan_val:vlan,
-   site_val:site,
-   description_val:description,
-   ip_range_val:ip_range,
-   project_val:project,
-   subnet_val:subnet,
-   gateway_val:gateway,
+   insert_row_usage:'insert_row_usage',
+   license:license,
+   hostname:hostname,
+   quantity:quantity,
+   start_date:start_date,
+   end_date:end_date,
+   project:project,
+   details:details,
   },
   success:function(response) 
   {
    if(response!="") //insert new row into table without page refresh and reset new row line to empty
-   {
-	    var id = response;
-	    var table = document.getElementById("vlans");
-	    var table_len = (table.rows.length)-1;
-	    var row = table.insertRow(table_len).outerHTML= "<tr class='table-tr' id='row"+id+"'>" +
-        "<td id='vlan_val"+id+"'>"+vlan+"</td>" +
-        "<td id='site_val"+id+"'>"+site+"</td>" + 
-        "<td id='description_val"+id+"'>"+description+"</td>" +
-        "<td id='project_val"+id+"'>"+project+"</td>" +
-        "<td id='ip_range_val"+id+"'>"+ip_range+"</td>" +
-        "<td id='subnet_val"+id+"'>"+subnet+"</td>" +
-        "<td id='gateway_val"+id+"'>"+gateway+"</td>" +
-  		"<td><input type='button' class='material-icons' id='edit_button"+id+"' value='edit' onclick='edit_row_vlan("+id+");'/></td>" +
-		"<td><input type='button' class='material-icons' id='save_button"+id+"' value='save' onclick='save_row_vlan("+id+");'/></td>" +
-		"<td><input type='button' class='material-icons' id='delete_button"+id+"' value='delete' onclick='delete_row_vlan("+id+");'/></td>"  +
-		"</tr>"
-		
-	    document.getElementById("new_vlan").value="";
-	    document.getElementById("new_site").value="";
-	    document.getElementById("new_description").value="";
-	    document.getElementById("new_project").value="";
-	    document.getElementById("new_ip_range").value="";
-	    document.getElementById("new_subnet").value="";
-	    document.getElementById("new_gateway").value="";
-	  
+   {  
 	    window.location.reload(true); //page must be re-loaded due to fixed columns not displaying correctly after inserting new row.
    }
   },
- });
+ });}
 }
+

@@ -75,8 +75,17 @@
     <tbody>
     
     	<?php 
+    	// if user clicks on an asset, load only that asset in JQUERY table
+    	if (isset($_GET['id']))
+    	{
+    	    $serial_no = $_GET['id'];
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else
+    	{
 		$query = 'SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server';
-		
+    	}
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
             $data->setFetchMode(PDO::FETCH_ASSOC);
@@ -85,7 +94,7 @@
                 ?>     
         <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
         	<td style="display:none;"></td>
-            <td id="serial_no_val<?php echo $row['serial_no'];?>"> <a href='server_view.php?id=<?php echo $row['serial_no']?>'><?php echo($serial_no = $row['serial_no']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
+            <td id="serial_no_val<?php echo $row['serial_no'];?>"> <a href='assets.php?id=<?php echo $row['serial_no']?>'><?php echo($serial_no = $row['serial_no']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="vendor_val<?php echo $row['serial_no'];?>"><?php echo($row['vendor'])?></td>  
             <td id="model_no_val<?php echo $row['serial_no'];?>"><?php echo($row['model_no']) ?></td>
             <td id="type_val<?php echo $row['serial_no'];?>"><?php echo($row['type']) ?></td>
@@ -147,8 +156,19 @@
     </thead>
     <tbody>
     	<?php 
+    	// if user clicks on an asset, load only that asset in JQUERY table
+    	if (isset($_GET['id']))
+    	{
+    	    $serial_no = $_GET['id'];
+    	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else
+    	{
+    	
 		$query = 'SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage';
 		
+    	}
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
             $data->setFetchMode(PDO::FETCH_ASSOC);
@@ -156,7 +176,7 @@
             {
                 ?>
         <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
-            <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
+            <td id="serial_no_val<?php echo $row['serial_no'];?>"><a href='assets.php?id=<?php echo $row['serial_no']?>'><?php echo($serial_no = $row['serial_no']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="hostname_val<?php echo $row['serial_no'];?>"><?php echo($row['hostname'])?></td>  
             <td id="ip_address_val<?php echo $row['serial_no'];?>"><?php echo($row['ip_address']) ?></td>
             <td id="project_val<?php echo $row['serial_no'];?>"><?php echo($row['project']) ?></td>
@@ -215,7 +235,19 @@
     </thead>
         <tbody>
     	<?php 
+    	// if user clicks on an asset, load only that asset in JQUERY table
+    	if (isset($_GET['id']))
+    	{
+    	    $serial_no = $_GET['id'];
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM maintenance WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else
+    	{
+    	
 		$query = 'SELECT serial_no, company,reference,start_date,end_date FROM maintenance';
+		
+    	}
 		
 		require_once ('dbconnection.php'); //get database connection
             $data = $db->query($query);
@@ -224,7 +256,7 @@
             {
                 ?>
         <tr class="table-tr" id="row<?php echo $row['serial_no'];?>">
-            <td id="serial_no_val<?php echo $row['serial_no'];?>"><?php echo($serial_no = $row['serial_no']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
+            <td id="serial_no_val<?php echo $row['serial_no'];?>"><a href='assets.php?id=<?php echo $row['serial_no']?>'><?php echo($serial_no = $row['serial_no']) ?></a></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="company_val<?php echo $row['serial_no'];?>"><?php echo($row['company'])?></td>  
             <td id="reference_val<?php echo $row['serial_no'];?>"><?php echo($row['reference']) ?></td>
             <td id="start_date_val<?php echo $row['serial_no'];?>"><?php echo($row['start_date']) ?></td>

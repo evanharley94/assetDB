@@ -55,6 +55,7 @@
         	<th style="display:none;"></th>
             <th bgcolor="#ffffff">License</th>
             <th>Quantity</th>
+            <th>In Use</th>
             <th>Description</th>
             <th>Purchase Date</th>
             <th>Maintenance End Date</th>
@@ -81,7 +82,8 @@
         <tr class="table-tr" id="row<?php echo $row['license_id'];?>">
         	<td style="display:none;"></td>
             <td id="license_val<?php echo $row['license_id'];?>"><?php echo($license = $row['license']) ?></td> <!-- x_val + primarykey is needed to make each id unique or it will fail -->
-            <td id="quantity_val<?php echo $row['license_id'];?>"><?php echo($row['quantity'])?></td>  
+            <td id="quantity_val<?php echo $row['license_id'];?>"><?php echo($row['quantity'])?></td> 
+            <td id="in_use_val<?php echo $row['license_id'];?>"><?php $inUseQuery = $db->query("SELECT SUM(quantity) FROM license_usage WHERE license='$license'");$inUse = $inUseQuery->fetch(PDO::FETCH_ASSOC); foreach ($inUse as $key => $val) {echo $val;};?></td>
             <td id="description_val<?php echo $row['license_id'];?>"><?php echo($row['description']) ?></td>
             <td id="purchase_date_val<?php echo $row['license_id'];?>"><?php echo($row['purchase_date']) ?></td>
             <td id="m_date_val<?php echo $row['license_id'];?>"><?php echo($row['m_date']) ?></td>
@@ -100,6 +102,7 @@
         	<td style="display:none;"></td> 
 			<td><input type="text" id="new_license" style="width:150px"/></td>
  			<td><input type="number" id="new_quantity" style="width:100px"/></td>
+ 			<td></td>
 			<td><input type="text" id="new_description" style="width:150px"/></td>
 			<td><input type="date" id="new_purchase_date" style="width:130px"/></td>
 			<td><input type="date" id="new_m_date" style="width:130px"/></td>
@@ -107,7 +110,7 @@
 			<td><input type="text" id="new_supplier" style="width:100px"/></td>
 			<td><input type="text" id="new_cost" style="width:120px"/></td>
 			<td><input type="text" id="new_renewal_info" style="width:160px"/></td>
-			<td><input type="button" class="material-icons" value="add" onclick="insert_row_license(document.getElementById('new_license').value);"/></td>
+			<td><input type="button" class="material-icons" value="add" onclick="insert_row_license();"/></td>
 			<td></td>
 			<td></td>
 		</tr> 			
@@ -151,7 +154,7 @@
         	<td style="display:none;"></td>
             <td id="license_val<?php echo $row['license_id'];?>"><?php echo($license = $row['license']) ?></td> <!-- x_val + serial_no is needed to make each id unique or it will fail -->
             <td id="hostname_val<?php echo $row['license_id'];?>"><?php echo($row['hostname'])?></td>  
-            <td id="quantity_no_val<?php echo $row['license_id'];?>"><?php echo($row['quantity']) ?></td>
+            <td id="quantity_val<?php echo $row['license_id'];?>"><?php echo($row['quantity']) ?></td>
             <td id="start_date_val<?php echo $row['license_id'];?>"><?php echo($row['start_date']) ?></td>
             <td id="end_date_val<?php echo $row['license_id'];?>"><?php echo($row['end_date']) ?></td>
             <td id="project_val<?php echo $row['license_id'];?>"><?php echo($row['project']) ?></td>
@@ -165,14 +168,25 @@
 		<!----------- Too insert new row -------------->	
         <tr id="new_row">
         	<td style="display:none;"></td> 
-			<td><input type="text" id="new_license" style="width:150px"/></td>
-			<td><input type="text" id="new_hostname" style="width:150px"/></td>
- 			<td><input type="number" id="new_quantity" style="width:100px"/></td>
-			<td><input type="date" id="new_start_date" style="width:130px"/></td>
-			<td><input type="date" id="new_end_date" style="width:130px"/></td>
-			<td><input type="text" id="new_project" style="width:100px"/></td>
-			<td><input type="text" id="details" style="width:150px"/></td>
-			<td><input type="button" class="material-icons" value="add" onclick="insert_row_license_usage(document.getElementById('new_license').value);"/></td>
+        	<td><select id = "new_use_license" style="width:150px"/>
+			<?php 
+			require_once ('dbconnection.php'); //get database connection
+			$query = 'SELECT license FROM license WHERE license NOT IN (SELECT license FROM license_usage)';
+			$result = $db->query($query);
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
+			{
+			    echo "<option value='" . $row['license'] ."'>" . $row['license'] ."</option>";
+			}
+			
+			?>
+			</select></td>
+			<td><input type="text" id="new_use_hostname" style="width:150px"/></td>
+ 			<td><input type="number" id="new_use_quantity" style="width:130px"/></td>
+			<td><input type="date" id="new_use_start_date" style="width:130px"/></td>
+			<td><input type="date" id="new_use_end_date" style="width:130px"/></td>
+			<td><input type="text" id="new_use_project" style="width:100px"/></td>
+			<td><input type="text" id="new_use_details" style="width:150px"/></td>
+			<td><input type="button" class="material-icons" value="add" onclick="insert_row_license_usage();"/></td>
 			<td></td>
 			<td></td>
 		</tr> 			
@@ -224,7 +238,7 @@ var seltab = sessionStorage.getItem('sel_tab');
 	} 
 	else 
 	{
-  		document.getElementById("BtnLicense").click();
+  		document.getElementById("Btnlicense").click();
 	}
 
 function openTable(evt, tableName) {
