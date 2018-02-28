@@ -76,6 +76,16 @@
     	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,po_number FROM hardware WHERE serial_no = '$serial_no'";
     	}
     	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,po_number FROM hardware WHERE serial_no IN (SELECT serial_no FROM hardware_maintenance WHERE end_date <= now())  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,po_number FROM hardware WHERE serial_no IN (SELECT serial_no FROM hardware_maintenance WHERE (end_date BETWEEN now() AND now() + interval 30 day))  ";
+    	}
+    	
     	else
     	{
 		$query = 'SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,po_number FROM hardware';
@@ -143,6 +153,16 @@
     	{
     	    $serial_no = $_GET['id'];
     	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM hardware_usage WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM hardware_usage WHERE serial_no IN (SELECT serial_no FROM hardware_maintenance WHERE end_date <= now())  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM hardware_usage WHERE serial_no IN (SELECT serial_no FROM hardware_maintenance WHERE (end_date BETWEEN now() AND now() + interval 30 day))  ";
     	}
     	
     	else
@@ -220,6 +240,16 @@
     	{
     	    $serial_no = $_GET['id'];
     	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM hardware_maintenance WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM hardware_maintenance WHERE end_date <= now()  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM hardware_maintenance WHERE end_date BETWEEN now() AND now() + interval 30 day  ";
     	}
     	
     	else

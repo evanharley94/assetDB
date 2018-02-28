@@ -82,6 +82,17 @@
     	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server WHERE serial_no = '$serial_no'";
     	}
     	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{   
+    	        $query = "SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server WHERE serial_no IN (SELECT serial_no FROM maintenance WHERE end_date <= now())  ";
+    	}
+    	
+    	else if (isset($_GET['expirying'])) 
+    	{
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server WHERE serial_no IN (SELECT serial_no FROM maintenance WHERE (end_date BETWEEN now() AND now() + interval 30 day))  ";
+    	}
+    	
+    	
     	else
     	{
 		$query = 'SELECT serial_no, vendor,model_no,type,purchase_date,memory,proc_type,no_of_procs,proc_cores,proc_speed,misc_info,u_size,po_number FROM server';
@@ -137,6 +148,7 @@
     </tbody>
 </table>
 </div>
+
 <!--------------------------- SERVER USAGE ------------------------------------>
 <div id="server_usage" class="tabcontent">
 		<table id="usage" class="display">
@@ -161,6 +173,16 @@
     	{
     	    $serial_no = $_GET['id'];
     	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage WHERE serial_no IN (SELECT serial_no FROM maintenance WHERE end_date <= now())  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, hostname,ip_address,project,start_date,expected_end_date,location FROM server_usage WHERE serial_no IN (SELECT serial_no FROM maintenance WHERE (end_date BETWEEN now() AND now() + interval 30 day))  ";
     	}
     	
     	else
@@ -240,6 +262,16 @@
     	{
     	    $serial_no = $_GET['id'];
     	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM maintenance WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM maintenance WHERE end_date <= now()  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM maintenance WHERE end_date BETWEEN now() AND now() + interval 30 day  ";
     	}
     	
     	else

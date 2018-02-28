@@ -78,6 +78,16 @@
     	    $query = "SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license WHERE license = '$license'";
     	}
     	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license WHERE m_date <= now() ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license WHERE m_date BETWEEN now() AND now() + interval 30 day ";
+    	}
+    	
     	else
     	{
 		$query = 'SELECT license_id, license,quantity,description,purchase_date,m_date,po_number,supplier,cost, renewal_info FROM license';

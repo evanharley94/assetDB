@@ -144,6 +144,16 @@
     	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,u_size,po_number FROM network WHERE serial_no = '$serial_no'";
     	}
     	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,u_size,po_number FROM network WHERE serial_no IN (SELECT serial_no FROM network_maintenance WHERE end_date <= now())  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, vendor,model_no,type,purchase_date,misc_info,u_size,po_number FROM network WHERE serial_no IN (SELECT serial_no FROM network_maintenance WHERE (end_date BETWEEN now() AND now() + interval 30 day))  ";
+    	}
+    	
     	else
     	{
     	
@@ -215,6 +225,16 @@
     	{
     	    $serial_no = $_GET['id'];
     	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM network_maintenance WHERE serial_no = '$serial_no'";
+    	}
+    	
+    	else if (isset($_GET['expiry'])) // if expired / nearing expiry load only these, onclick from reports
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM network_maintenance WHERE end_date <= now()  ";
+    	}
+    	
+    	else if (isset($_GET['expirying']))
+    	{
+    	    $query = "SELECT serial_no, company,reference,start_date,end_date FROM network_maintenance WHERE end_date BETWEEN now() AND now() + interval 30 day  ";
     	}
     	
     	else

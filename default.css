@@ -590,3 +590,20 @@ div.tab button.active {
     border-top: none;
 }
 
+.containerR {
+  display: flex;
+  justify-content: center;
+}
+.centerR {
+  align: center;
+}
+
+.buttonR {
+    background-color: #2A70E8;
+    color: white;
+    padding: 6px 70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
