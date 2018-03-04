@@ -29,10 +29,10 @@
 	<div id="menu" class="container">
 		<ul>
 			<li><a href="index.php" accesskey="1" title="">Homepage</a></li>
-			<li><a href="servers.php" accesskey="2" title="">Servers</a></li>
-			<li><a href="networks.php" accesskey="3" title="">Networks</a></li>
-			<li><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
-			<li class="current_page_item"><a href="#" accesskey="5" title="">Licenses</a></li>
+			<li><a href="assets.php" accesskey="2" title="">Servers</a></li>
+			<li><a href="network_asset.php" accesskey="3" title="">Networks</a></li>
+			<li><a href="hardware_asset.php" accesskey="4" title="">Hardware</a></li>
+			<li class="current_page_item"><a href="license_asset.php" accesskey="5" title="">Licenses</a></li>
 			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
 			<li><a href="search.php" accesskey="7" title="">Search</a></li>
 		</ul>
@@ -292,6 +292,7 @@ function openTable(evt, tableName) {
 
 
 </script>
+
 <div id="copyright" class="container">
 	<p>Confidential and for internal use only. Copyright &copy; 2017 Capgemini. | Template by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>

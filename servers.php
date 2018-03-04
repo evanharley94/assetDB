@@ -27,7 +27,7 @@
 			<li><a href="hardware.php" accesskey="4" title="">Hardware</a></li>
 			<li><a href="licenses.php" accesskey="5" title="">Licenses</a></li>
 			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
-			<li><a href="search.php" accesskey="7" title="">Search</a></li>
+			<li><div id="searchButton"><a href="#" accesskey="7" title="">Search</a></div></li>
 		</ul>
 	</div>
 </div>

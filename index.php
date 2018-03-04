@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-
+<script>sessionStorage.clear();// this is needed to clear the local storage of the tab options so they load the first one 
+</script> 
 </head>
 <body>
 <div id="logo">
@@ -21,12 +22,12 @@
 	<div id="menu" class="container">
 		<ul>
 			<li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-			<li><a href="servers.php" accesskey="2" title="">Servers</a></li>
-			<li><a href="networks.php" accesskey="3" title="">Networks</a></li>
-			<li><a href="#" accesskey="4" title="">Hardware</a></li>
-			<li><a href="#" accesskey="5" title="">Licenses</a></li>
-			<li><a href="#" accesskey="6" title="">Reports</a></li>
-			<li><a href="#" accesskey="7" title="">Search</a></li>
+			<li><a href="assets.php" accesskey="2" title="">Servers</a></li>
+			<li><a href="network_asset.php" accesskey="3" title="">Networks</a></li>
+			<li><a href="hardware_asset.php" accesskey="4" title="">Hardware</a></li>
+			<li><a href="license_asset.php" accesskey="5" title="">Licenses</a></li>
+			<li><a href="reports.php" accesskey="6" title="">Reports</a></li>
+			<li><a href="search.php" accesskey="7" title="">Search</a></li>
 		</ul>
 	</div>
 </div>
@@ -36,48 +37,42 @@
 			<h2>Manage ADC Assets below</h2>
 		</div>
 		<div class="column1">
-			<a href="servers.php"><span class="icon icon-cloud"></span></a>
+			<a href="assets.php"><span class="icon icon-cloud"></span></a>
 			<div class="title">
-				<h2><a href="servers.php">Servers</a></h2>
+				<h2><a href="assets.php">Servers</a></h2>
 				<span class="byline">Manage Server Assets</span>
 			</div>
 		</div>
 		<div class="column2">
-			<a href="networks.php"><span class="icon icon-qrcode"></span></a>
+			<a href="network_asset.php"><span class="icon icon-qrcode"></span></a>
 			<div class="title">
-				<h2><a href="networks.php">Networks</a></h2>
+				<h2><a href="network_asset.php">Networks</a></h2>
 				<span class="byline">Manage Network Assets</span>
 			</div>
 		</div>
 		<div class="column3">
-			<a href="hardware.php"><span class="icon icon-laptop"></span></a>
+			<a href="hardware_asset.php"><span class="icon icon-laptop"></span></a>
 			<div class="title">
-				<h2><a href="hardware.php">Hardware</a></h2>
+				<h2><a href="hardware_asset.php">Hardware</a></h2>
 				<span class="byline">Manage Hardware</span>
 			</div>
 		</div>
 		<div class="column4">
-			<a href="licenses.php"><span class="icon icon-picture"></span></a>
+			<a href="license_asset.php"><span class="icon icon-picture"></span></a>
 			<div class="title">
-				<h2><a href="licenses.php">Licenses</a></h2>
+				<h2><a href="license_asset.php">Licenses</a></h2>
 				<span class="byline">Manage Licenses</span>
 			</div>
 		</div>
+
 		<div class="column1">
-			<a href="desks.php"><span class="icon icon-building"></span></a>
-			<div class="title">
-				<h2><a href="desks.php">Desks</a></h2>
-				<span class="byline">Manage Desks</span>
-			</div>
-		</div>
-		<div class="column2">
 			<a href="reports.php"><span class="icon icon-file"></span></a>
 			<div class="title">
 				<h2><a href="reports.php">Reports</a></h2>
 				<span class="byline">View Reports</span>
 			</div>
 		</div>
-		<div class="column3">
+		<div class="column2">
 			<a href="search.php"><span class="icon icon-search"></span></a>
 			<div class="title">
 				<h2><a href="search.php">Search</a></h2>
