@@ -335,7 +335,11 @@ $(document).ready( function () //initalise maintenance data table
 // Tab options
 
 var seltab = sessionStorage.getItem('sel_tab');
-	if (seltab) 
+	if (seltab == "network") 
+	{
+ 		document.getElementById("Btn" + seltab).click();
+	} 
+	else if (seltab == "maint") 
 	{
  		document.getElementById("Btn" + seltab).click();
 	} 

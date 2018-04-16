@@ -13,7 +13,7 @@ function edit_row_license(license_id)
  var cost = document.getElementById("cost_val"+license_id).innerHTML;
  var renewal_info = document.getElementById("renewal_info_val"+license_id).innerHTML;
 
- document.getElementById("license_val"+license_id).innerHTML = "<input type='text' id='license_text"+license_id+"' value='"+license+"' style='width:150px'>"; //input current value into edit field
+// document.getElementById("license_val"+license_id).innerHTML = "<input type='text' id='license_text"+license_id+"' value='"+license+"' style='width:150px'>"; //input current value into edit field
  document.getElementById("quantity_val"+license_id).innerHTML = "<input type='number' id='quantity_text"+license_id+"' value='"+quantity+"' style='width:100px'>";
  document.getElementById("description_val"+license_id).innerHTML = "<input type='text' id='description_text"+license_id+"' value='"+description+"' style='width:150px'>";
  document.getElementById("purchase_date_val"+license_id).innerHTML = "<input type='date' id='purchase_date_text"+license_id+"' value='"+purchase_date+"' style='width:130px'>";
@@ -32,7 +32,7 @@ function edit_row_license(license_id)
 function save_row_license(license_id)
 {
  
- var license = document.getElementById("license_text"+license_id).value;
+// var license = document.getElementById("license_text"+license_id).value;
  var quantity = document.getElementById("quantity_text"+license_id).value;
  var description = document.getElementById("description_text"+license_id).value;
  var purchase_date = document.getElementById("purchase_date_text"+license_id).value;
@@ -57,7 +57,7 @@ function save_row_license(license_id)
   data:{
    edit_row:'edit_row',
    id:license_id,
-   license:license,
+//   license:license,
    quantity:quantity,
    description:description,
    purchase_date:purchase_date,
@@ -72,7 +72,7 @@ function save_row_license(license_id)
 	  if(response="success") //if return value from SQL Update query is success
 	  {
 
-    document.getElementById("license_val"+license_id).innerHTML = license; //print the new value back on the page
+//    document.getElementById("license_val"+license_id).innerHTML = license; //print the new value back on the page
     document.getElementById("quantity_val"+license_id).innerHTML = quantity;
     document.getElementById("description_val"+license_id).innerHTML = description;
     document.getElementById("purchase_date_val"+license_id).innerHTML = purchase_date;

@@ -375,7 +375,11 @@ $(document).ready( function () //initalise maintenance data table
 // Tab options
 
 var seltab = sessionStorage.getItem('sel_tab');
-	if (seltab) 
+	if (seltab == "server_usage") 
+	{
+ 		document.getElementById("Btnserver_usage").click();
+	} 
+	else if (seltab == "maint") 
 	{
  		document.getElementById("Btn" + seltab).click();
 	} 

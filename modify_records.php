@@ -26,7 +26,6 @@ if(isset($_POST['edit_row']))
         $no_of_procs = 'NULL';
     }
     
-    
     if(empty($proc_cores))
     {
         $proc_cores = 'NULL';

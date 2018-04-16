@@ -199,7 +199,7 @@
         	<td><select id = "new_use_license" style="width:150px"/>
 			<?php 
 			require_once ('dbconnection.php'); //get database connection
-			$query = 'SELECT license FROM license WHERE license NOT IN (SELECT license FROM license_usage)';
+			$query = 'SELECT license FROM license';
 			$result = $db->query($query);
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) 
 			{
@@ -260,7 +260,7 @@ $(document).ready( function () //initalise network vlan data table
 // Tab options
 
 var seltab = sessionStorage.getItem('sel_tab');
-	if (seltab) 
+	if (seltab == "licenseusage") 
 	{
  		document.getElementById("Btn" + seltab).click();
 	} 

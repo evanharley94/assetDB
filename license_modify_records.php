@@ -7,7 +7,7 @@ include 'dbconnection.php';
 if(isset($_POST['edit_row']))
 {
     $license_id = $_POST['id'];
-    $license = $_POST['license'];
+ //   $license = $_POST['license'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
     $purchase_date = $_POST['purchase_date'];
@@ -17,7 +17,7 @@ if(isset($_POST['edit_row']))
     $cost = $_POST['cost'];
     $renewal_info = $_POST['renewal_info'];
     
-        $query = $db->query("UPDATE license SET license='$license',quantity='$quantity',description='$description',purchase_date=IF('$purchase_date'='',NULL,'$purchase_date'),m_date=IF('$m_date'='',NULL,'$m_date'), 
+        $query = $db->query("UPDATE license SET quantity='$quantity',description='$description',purchase_date=IF('$purchase_date'='',NULL,'$purchase_date'),m_date=IF('$m_date'='',NULL,'$m_date'), 
         po_number = '$po_number', supplier = '$supplier', cost = '$cost', renewal_info = '$renewal_info'  where license_id='$license_id'");
          
     if ($db->rowCount() > 0)
